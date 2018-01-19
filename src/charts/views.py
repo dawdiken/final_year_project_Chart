@@ -3,9 +3,9 @@ from django.views.generic import View
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.db.backends import mysql
+# from django.db.backends import mysql
 import MySQLdb
-
+import pymysql
 
 
 
@@ -22,10 +22,14 @@ def get_data(request, *args, **kwargs):
     return JsonResponse(data)
 
 def homeView(request):
-  conn = MySQLdb.connect(host="35.184.175.243",    # your host, usually localhost
-                     user="root",         # your username
-                     passwd="test12",  # your password
-                     db="engineering")        # name of the data base
+  # conn = MySQLdb.connect(host="35.184.175.243",    # your host, usually localhost
+  #                    user="root",         # your username
+  #                    passwd="test12",  # your password
+  #                    db="engineering")        # name of the data base
+  conn = pymysql.connect(host="35.184.175.243",  # your host, usually localhost
+                         user="root",  # your username
+                         passwd="test12",  # your password
+                         db="engineering")  # name of the data base
   try:
     cursor = conn.cursor()
     cursor.execute("select * from users")
