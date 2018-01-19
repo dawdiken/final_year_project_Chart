@@ -81,17 +81,17 @@ WSGI_APPLICATION = 'charts.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '35.184.175.243',
-            'PORT': '3306',
-            'NAME': 'engineering',
-            'USER': 'root',
-            'PASSWORD': 'test12',
-        }
-
-}
+# DATABASES = {
+#     'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'HOST': '35.184.175.243',
+#             'PORT': '3306',
+#             'NAME': 'engineering',
+#             'USER': 'root',
+#             'PASSWORD': 'test12',
+#         }
+#
+# }
 
 
 # Password validation
