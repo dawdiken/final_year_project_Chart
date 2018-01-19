@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 
 
-class HomeView(View):
+class Data_home(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'charts.html', {"customer": 10})
 
@@ -19,10 +19,17 @@ def get_data(request, *args, **kwargs):
     }
     return JsonResponse(data)
 
+
+def homeView(request, *args, **kwargs):
+    data = {
+        "sale": 100,
+        "customers": 10,
+    }
+    return JsonResponse(data)
+
+
 class ChartData(APIView):
     """
-    View to list all users in the system.
-
     * Requires token authentication.
     * Only admin users are able to access this view.
     """
@@ -31,7 +38,7 @@ class ChartData(APIView):
 
     def get(self, request, format=None):
         labels = ["Des", "Mike", "Michelle", "Paul", "Brian", "Niall"]
-        default_items = [10,15,17,25,9,7]
+        default_items = [10, 15, 17, 25, 9, 7]
         data = {
             "labels": labels,
             "default": default_items,
