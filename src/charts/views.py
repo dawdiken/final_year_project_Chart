@@ -3,6 +3,8 @@ from django.views.generic import View
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.db.backends import mysql
+import MySQLdb
 
 
 
@@ -19,13 +21,29 @@ def get_data(request, *args, **kwargs):
     }
     return JsonResponse(data)
 
+def homeView(request):
+  conn = MySQLdb.connect(host="35.184.175.243",    # your host, usually localhost
+                     user="root",         # your username
+                     passwd="test12",  # your password
+                     db="engineering")        # name of the data base
+  try:
+    cursor = conn.cursor()
+    cursor.execute("select * from users")
+    rows = cursor.fetchall()
+    print(rows)
+  finally:
+    conn.close()
 
-def homeView(request, *args, **kwargs):
-    data = {
-        "sale": 100,
-        "customers": 10,
-    }
-    return JsonResponse(data)
+    return Response({"rows": rows})
+  # return Response("mytemplate.html", {"rows" : rows})
+
+
+# def homeView(request, *args, **kwargs):
+#     data = {
+#         "sale": 100,
+#         "customers": 10,
+#     }
+#     return JsonResponse(data)
 
 
 class ChartData(APIView):
