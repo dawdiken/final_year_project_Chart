@@ -1,0 +1,5 @@
+for development create a snapshot of the machine as i go.
+you can create a new instance from a snapshot.
+
+how to do this can be found here -
+https://cloud.google.com/compute/docs/instances/create-start-instance#createsnapshot

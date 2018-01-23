@@ -1,0 +1,65 @@
+python3 manage.py runserver 0.0.0.0:8000
+http://35.190.172.251:8000/
+GMITEDHR.COM
+############################################
+Kili123!!
+
+##############################################
+git init
+git clone https://github.com/dawdiken/final_year_project_Chart
+
+#add where to push back to
+git remote add upstream https://github.com/dawdiken/final_year_project_Chart
+
+#same procedure then
+just -  git add .
+      - git commmit -m ""
+      - git push
+##########################################
+############################
+vim ~/.bash_history
+##########################
+################
+database stuff:
+root
+test12
+#################
+connect to database in command line =
+
+mysql --host=35.184.175.243 --user=root --password=test12
+
+###########
+data base problem fix import
+
+I have a suggestion,if you have install MySQL database,
+you follow this,open pycharm and click
+File->Settings->Project->Project Interpreter,
+then select your Python interpreter and
+click install button (the little green plus sign),
+input "MySQL-Python" and click the button "install package",
+you will install MySQL-Python successfully.
+If you have not install MySQL database,
+you need install MySQL database first.
+######################
+########################
+import pymysql
+that is the soloution
+see this thread
+https://stackoverflow.com/questions/4960048/python-3-and-mysql
+###############################################
+keep runserver persistent
+use screen command
+
+keep the server alive using screen. see web page below answer 6
+screen
+
+screen -ls
+
+There is a screen on:
+    10989.pts-1.hostname (Detached)
+1 Socket in /run/screens/S-username.
+
+screen -R 10989
+https://stackoverflow.com/questions/32011375/keep-django-runserver-alive-when-ssh-is-closed
+################################################################
+
