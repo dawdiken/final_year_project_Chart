@@ -32,9 +32,17 @@ def homeView(request):
                          db="engineering")  # name of the data base
   try:
     cursor = conn.cursor()
-    cursor.execute("select * from users")
+    cursor.execute("select userName from users")
     rows = cursor.fetchall()
+    labels = []
     print(rows)
+    for line in rows:
+        print (line)
+        for element in line:
+            print (element)
+            labels.add()
+
+    print(labels.all)
   finally:
     conn.close()
 
