@@ -13,9 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
-
 
 from .views import Data_home, get_data, ChartData, homeView
 
@@ -25,4 +24,8 @@ urlpatterns = [
     url(r'^api/data/$', get_data, name='api-data'),
     url(r'^api/chart/data/$', ChartData.as_view()),
     url(r'^admin/', admin.site.urls),
+    # url(r'^setcol', set_color , name='set_col'),
+    # url(r'^showcol', show_color , name='set_col'),
+    url('accounts/', include('django.contrib.auth.urls')),
 ]
+

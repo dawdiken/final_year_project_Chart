@@ -1,6 +1,14 @@
+superuser
+david
+pass1234
+#########################
 python3 manage.py runserver 0.0.0.0:8000
 http://35.190.172.251:8000/
 GMITEDHR.COM
+#############################
+ref site for how to django
+http://django-book.readthedocs.io/en/latest/chapter14.html
+
 ############################################
 Kili123!!
 

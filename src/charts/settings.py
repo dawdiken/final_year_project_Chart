@@ -81,6 +81,8 @@ WSGI_APPLICATION = 'charts.wsgi.application'
 #     }
 # }
 
+LOGIN_REDIRECT_URL = '/api/chart/this/'
+
 DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.mysql',

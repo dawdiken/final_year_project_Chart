@@ -7,6 +7,7 @@ from rest_framework.response import Response
 #import MySQLdb
 import pymysql
 import json
+from django.http import HttpResponse
 
 
 
@@ -101,3 +102,51 @@ class ChartData(APIView):
 
         }
         return Response(data)
+#
+#
+# def show_color(request):
+#     print (request)
+#     if "favorite_color" in request.COOKIES:
+#         return HttpResponse("Your favorite color is %s" % \
+#             request.COOKIES["favorite_color"])
+#     else:
+#         return HttpResponse("You don't have a favorite color.")
+#
+#
+# def set_color(request):
+#     print(request)
+#
+#     if "/favorite_color" in request:
+#         # Create an HttpResponse object...
+#         response = HttpResponse("Your favorite color is now %s" % \
+#             request["favorite_color"])
+#
+#         # ... and set a cookie on the response
+#         response.set_cookie("favorite_color",
+#                             request.GET["favorite_color"])
+#
+#         return response
+#
+#     else:
+#         return HttpResponse("didnt work")
+#
+# from django.http import HttpResponse
+# from django.shortcuts import render
+#
+# def login(request):
+#     if request.method == 'POST':
+#         if request.session.test_cookie_worked():
+#             request.session.delete_test_cookie()
+#             return HttpResponse("You're logged in.")
+#         else:
+#             return HttpResponse("Please enable cookies and try again.")
+#     request.session.set_test_cookie()
+#     return render(request, 'foo/login_form.html')
+#
+# def post_comment(request, new_comment):
+#     if request.session.get('has_commented', False):
+#         return HttpResponse("You've already commented.")
+#     c = comments.Comment(comment=new_comment)
+#     c.save()
+#     request.session['has_commented'] = True
+#     return HttpResponse('Thanks for your comment!')
