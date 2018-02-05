@@ -16,13 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .views import Data_home, get_data, ChartData, homeView
+from .views import get_data, ChartUsers, homeView, Data_users
 
 urlpatterns = [
     url(r'^$', homeView, name='homeView'),
-    url(r'^api/chart/this/$', Data_home.as_view(), name='Data_home'),
+    url(r'^api/chart/users/$', Data_users.as_view(), name='Data_users'),
     url(r'^api/data/$', get_data, name='api-data'),
-    url(r'^api/chart/data/$', ChartData.as_view()),
+    url(r'^api/chart/users_info/$', ChartUsers.as_view()),
     url(r'^admin/', admin.site.urls),
     # url(r'^setcol', set_color , name='set_col'),
     # url(r'^showcol', show_color , name='set_col'),
