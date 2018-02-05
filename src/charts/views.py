@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import View
-from django.http import JsonResponse
+from django.http import JsonResponse ,request
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.conf import settings
+from django.shortcuts import redirect
 # from django.db.backends import mysql
 #import MySQLdb
 import pymysql
@@ -13,6 +15,8 @@ from django.http import HttpResponse
 
 class Data_users(View):
     def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         return render(request, 'charts.html', {"customer": 10})
 
 
