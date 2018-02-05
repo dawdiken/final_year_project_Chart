@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+   <li>Sorry {{ user.get_username }} you do not have the correct permissions to acces that page: </li>
+   <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+   <li><a href="{% url 'Data_users'%}?next={{request.path}}">Chart users</a></li>
+   {% else %}
+        <p>Please Log in:</p>
+   <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+   {% endif %}
+
+{% endblock %}

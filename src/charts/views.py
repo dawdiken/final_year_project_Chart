@@ -16,6 +16,8 @@ class Data_users(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+        if not request.user.email.endswith('@gmail.com'):
+            return redirect('/permissionredirect')
         return render(request, 'charts.html', {"customer": 10})
 
 
@@ -25,6 +27,11 @@ def get_data(request, *args, **kwargs):
         "customers": 10,
     }
     return JsonResponse(data)
+
+
+def permissionredirect(request, *args, **kwargs):
+
+    return render(request, 'nopermission.html')
 
 
 def homeView(request):
