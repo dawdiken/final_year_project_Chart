@@ -82,6 +82,105 @@ class ChartUsers(APIView):
         return Response(data)
 
 
+class usertable(View):
+    def get(self, request, *args, **kwargs):
+        # if not request.user.is_authenticated:
+        #     return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+        # if not request.user.email.endswith('@gmail.com'):
+        #     return redirect('/permissionredirect')
+        return render(request, 'usertable.html')
+
+
+class displayUsers(APIView):
+    """
+    * Requires token authentication.
+    * Only admin users are able to access this view.
+    """
+    # login_url = '/login/'
+    # redirect_field_name = 'redirect_to'
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        try:
+            cnx = pymysql.connect(host="35.184.175.243",  # your host, usually localhost
+                               user="root",  # your username
+                               passwd="test12",  # your password
+                               db="engineering")  # name of the data base
+            cursor = cnx.cursor()
+
+            query = ("select * from users")
+
+            query = ("SELECT userID, userName, pass FROM users ")
+
+
+            cursor.execute(query)
+
+            response = []
+            # rows = cursor.fetchall()
+            # for row in rows:
+            #     for key, dict_list in row.iteritems():
+            #         count = dict_list[1]
+            #         year = dict_list[2]
+            #         response.append({'userID': count['v'], 'userName': year['v']})
+            #
+            # print (json.dumps(response))
+            # rows = cursor.fetchall()
+            # print(cursor.fetchall())
+            # print(rows.userName)
+            # thisstuff = []
+            results = cursor.fetchall()
+            for row in results:
+                userID = row[0]
+                userName = row[1]
+                passw = row[2]
+                # Now print fetched result
+                # print("fname={},lname={},passw={}".format(userID, userName, passw))
+                response.append({'userID': userID, 'userName': userName})
+            print("response json" + json.dumps(response))
+
+
+
+            # for (userID, userName) in cursor:
+            #     print("{}, {} ".format(
+            #         userID, userName))
+
+            # rows = cursor.fetchall()
+
+            # print(rows)
+
+
+
+            # cursor = conn.query()
+            # query = ("SELECT first_name, last_name, hire_date FROM employees "
+            #          "WHERE hire_date BETWEEN %s AND %s")
+            # cursor.execute("select * from users")
+            # rows = cursor.fetchall()
+            # jsonliststuff = json.dumps(rows)
+            # # print(jsonliststuff)
+            # labels = []
+            # print(rows)
+            # print(rows.userName)
+
+        finally:
+            cursor.close()
+            cnx.close()
+
+        # labels = [["Des"], ["Mike"], ["Michelle"], ["Paul"], ["Brian"], ["Niall"]]
+        # print(labels)
+        # default_items = [10, 15, 17, 25, 9, 7]
+        # data2 = json.dumps(response)
+        # print (data2)
+        # data = {
+        #     "labels": rows,
+        #     "default": default_items,
+        #
+        # }
+        data2 = json.dumps(response)
+        # print (data2)
+        return JsonResponse(json.dumps(response), safe=False)
+
+
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 
