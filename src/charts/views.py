@@ -188,6 +188,14 @@ class worktable(View):
         #     return redirect('/permissionredirect')
         return render(request, 'worktable.html')
 
+class workinfo(View):
+    def get(self, request, *args, **kwargs):
+        # if not request.user.is_authenticated:
+        #     return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+        # if not request.user.email.endswith('@gmail.com'):
+        #     return redirect('/permissionredirect')
+        return render(request, 'showjob.html')
+
 class displayWork(APIView):
     """
     * Requires token authentication.

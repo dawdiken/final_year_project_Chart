@@ -136,7 +136,7 @@
                     console.log("error: "+error);
                 }
             });
-            $(".delete-row").click(function(){
+            $(".view-info").click(function(){
                 var i = 0;
                 $("table tbody").find('input[name="record"]').each(function(){
                     console.log(i)
@@ -144,11 +144,12 @@
                         console.log($(this));
                         var result;
                         $.ajax({
-                            url:"/student/",
+                            url:"/api/chart/testing/",
                             method:"GET",
                             data:"",
                             dataType:"JSON",
                             success:function(result){
+                                window.location = "http://www.google.com";
                                 console.log("IT WORKED");
                                 console.log("i = " + i);
                                 var student = result[i];

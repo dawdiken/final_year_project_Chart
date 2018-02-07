@@ -122,6 +122,7 @@
 	                {#alert(obj.userID);#}
 	                labels = obj.userID;
 	                defaultData = obj.userName;
+	                console.log("obj 1 = "+obj.userID)
 	                populateTable(obj);
                     });
                     {#labels = result.userID;#}
@@ -137,34 +138,62 @@
                     console.log("error: "+error);
                 }
             });
-            $(".delete-row").click(function(){
+            $(".view-info").click(function(){
                 var i = 0;
                 $("table tbody").find('input[name="record"]').each(function(){
-                    console.log(i)
+                    console.log(i);
                     if($(this).is(":checked")){
                         console.log($(this));
                         var result;
-                        $.ajax({
-                            url:"/student/",
-                            method:"GET",
-                            data:"",
-                            dataType:"JSON",
-                            success:function(result){
-                                console.log("IT WORKED");
-                                console.log("i = " + i);
-                                var student = result[i];
-                                console.log("student here " + student.userID);
-                                console.log(result);
-                                removeUser(result, i);
-                            },
-                            error:function(xhr,status,error){
-                                console.log("error: "+error);
-                            }
-                        });
-                        $(this).parents("tr").remove();
+                        console.log("the result was" + result);
+                        localStorage.clear('myMainKey');
+                        localStorage.clear('myMainKey1');
+                        var num = i;
+                        console.log("this is iiii" + num);
+                        localStorage.setItem('myMainKey', num);
+                        localStorage.setItem('myMainKey1', result);
+                        var data = localStorage.getItem('myMainKey1');
+                        if (data !== undefined) {
+                            console.log("we are here now");
+                            console.log(data);
+                            console.log("we are here now");
+                        }
+                        var newinfo = localStorage.getItem('myMainKey');
+                        if (newinfo !== undefined) {
+                            console.log("we are here now 2");
+                            console.log("is this it" + newinfo);
+                             console.log("we are here now 2");
+                        }
+                        {#$.ajax({#}
+                        {#    url:"/api/chart/getworktable/",#}
+                        {#    method:"GET",#}
+                        {#    data:"",#}
+                        {#    dataType:"JSON",#}
+                        {#    success:function(result){#}
+                                {#localStorage.setItem('myMainKey', result);#}
+                        {#        localStorage.clear('myMainKey');#}
+                        {#        localStorage.clear('myMainKey1');#}
+                        {#        var num = i;#}
+                        {#        console.log("this is iiii" + num);#}
+                        {#        localStorage.setItem('myMainKey', num);#}
+                        {#        localStorage.setItem('myMainKey1', result);#}
+                                {#window.location = "/api/chart/workinfo/";#}
+                        {#        console.log("IT WORKED");#}
+                        {#        console.log("i = " + i);#}
+                        {#        var student = result[i];#}
+                        {#        console.log("student here " + student.userID);#}
+                        {#        console.log(result);#}
+                                {#removeUser(result, i);#}
+                        {#    },#}
+                        {#    error:function(xhr,status,error){#}
+                        {#        console.log("error: "+error);#}
+                        {#    }#}
+
+                        {#$(this).parents("tr").remove();#}
                     }
                     else{
                         i++;
+                        $(this).parents("tr").remove();
                         console.log("testing here" + i);
                     }
                 });
@@ -174,7 +203,7 @@
     function populateTable(usersInfo){
         var table = document.getElementById("user-table");
         var len = usersInfo.length;
-        console.log("pupulate student = " + usersInfo + "lenght" + len)
+        console.log("pupulate student = " + usersInfo + "lenght" + len);
         {#for (var i = 0; i<len; i++){#}
         {#    var student = students[i];#}
              {#console.log(student[i])#}

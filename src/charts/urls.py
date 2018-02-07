@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .views import get_data, ChartUsers, homeView, Data_users, permissionredirect, displayUsers, usertable, displayWork, worktable
+from .views import get_data, ChartUsers, homeView, Data_users, permissionredirect, displayUsers, usertable, displayWork, worktable,workinfo
 
 urlpatterns = [
     url(r'^$', homeView, name='homeView'),
@@ -34,5 +34,6 @@ urlpatterns = [
 
     url(r'^api/chart/getworktable/$', displayWork.as_view()),
     url(r'^api/chart/worktable/$', worktable.as_view(), name='usertable'),
+    url(r'^api/chart/workinfo/$', workinfo.as_view(), name='workinfo'),
 ]
 
