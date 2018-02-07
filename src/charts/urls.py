@@ -16,11 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .views import get_data, ChartUsers, homeView, Data_users, permissionredirect, displayUsers, usertable
+from .views import get_data, ChartUsers, homeView, Data_users, permissionredirect, displayUsers, usertable, displayWork, worktable
 
 urlpatterns = [
     url(r'^$', homeView, name='homeView'),
-    url(r'^api/chart/testing/$', displayUsers.as_view()),
     url(r'^permissionredirect$', permissionredirect, name='permissionredirect'),
     url(r'^api/chart/users/$', Data_users.as_view(), name='Data_users'),
     url(r'^api/data/$', get_data, name='api-data'),
@@ -30,6 +29,10 @@ urlpatterns = [
     # url(r'^showcol', show_color , name='set_col'),
     url('accounts/', include('django.contrib.auth.urls')),
 
+    url(r'^api/chart/testing/$', displayUsers.as_view()),
     url(r'^api/chart/table/$', usertable.as_view(), name='usertable'),
+
+    url(r'^api/chart/getworktable/$', displayWork.as_view()),
+    url(r'^api/chart/worktable/$', worktable.as_view(), name='usertable'),
 ]
 

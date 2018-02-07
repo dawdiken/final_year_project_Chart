@@ -180,6 +180,64 @@ class displayUsers(APIView):
         # print (data2)
         return JsonResponse(json.dumps(response), safe=False)
 
+class worktable(View):
+    def get(self, request, *args, **kwargs):
+        # if not request.user.is_authenticated:
+        #     return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+        # if not request.user.email.endswith('@gmail.com'):
+        #     return redirect('/permissionredirect')
+        return render(request, 'worktable.html')
+
+class displayWork(APIView):
+    """
+    * Requires token authentication.
+    * Only admin users are able to access this view.
+    """
+    # login_url = '/login/'
+    # redirect_field_name = 'redirect_to'
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        try:
+            cnx = pymysql.connect(host="35.184.175.243",  # your host, usually localhost
+                               user="root",  # your username
+                               passwd="test12",  # your password
+                               db="engineering")  # name of the data base
+            cursor = cnx.cursor()
+
+            # query = ("select * from users")
+
+            query = ("SELECT * FROM workon")
+
+
+            cursor.execute(query)
+
+            response = []
+
+            results = cursor.fetchall()
+            print(results)
+
+            for row in results:
+                jobID = row[0]
+                jobNum = row[1]
+                active = row[2]
+                customer_ID = row[3]
+                department_ID = row[4]
+                partID = row[5]
+                machineID = row[6]
+                response.append({'jobID': jobID, 'jobNum': jobNum, 'active': active, 'customer_ID': customer_ID,
+                                 'department_ID': department_ID, 'partID': partID, 'machineID': machineID})
+            print("response json" + json.dumps(response))
+
+        finally:
+            cursor.close()
+            cnx.close()
+
+        data2 = json.dumps(response)
+        # print (data2)
+        return JsonResponse(json.dumps(response), safe=False)
+
 
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
