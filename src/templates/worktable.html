@@ -1,55 +1,126 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>EDHR</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <style type="text/css">
-        /* Remove the navbar's default rounded borders and increase the bottom margin */
-        .navbar {
-            margin-bottom: 50px;
-            border-radius: 0;
-        }
-        /* Remove the jumbotron's default bottom margin */
-        .jumbotron {
-            margin-bottom: 0;
-        }
-        /* Add a gray background color and some padding to the footer */
-        footer {
-            background-color: #f2f2f2;
-            padding: 25px;
-        }
-        div {
-            text-align: center;
-        }
-        form{
-            margin: 20px 0;
-        }
-        form input, button{
-            padding: 5px;
-        }
-        table{
-            width: 100%;
-            margin-bottom: 20px;
-            border-collapse: collapse;
-        }
-        table, th, td{
-            border: 1px solid #cdcdcd;
-        }
-        table th, table td{
-            padding: 10px;
-            text-align: left;
-        }
-    </style>
+{% extends 'base.html' %}
+
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">#}
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>#}
+{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
+{#    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>#}
+{#    <style type="text/css">#}
+{#        /* Remove the navbar's default rounded borders and increase the bottom margin */#}
+{#        .navbar {#}
+{#            margin-bottom: 50px;#}
+{#            border-radius: 0;#}
+{#        }#}
+{#        /* Remove the jumbotron's default bottom margin */#}
+{#        .jumbotron {#}
+{#            margin-bottom: 0;#}
+{#        }#}
+{#        /* Add a gray background color and some padding to the footer */#}
+{#        footer {#}
+{#            background-color: #f2f2f2;#}
+{#            padding: 25px;#}
+{#        }#}
+{#        div {#}
+{#            text-align: center;#}
+{#        }#}
+{#        form{#}
+{#            margin: 20px 0;#}
+{#        }#}
+{#        form input, button{#}
+{#            padding: 5px;#}
+{#        }#}
+{#        table{#}
+{#            width: 100%;#}
+{#            margin-bottom: 20px;#}
+{#            border-collapse: collapse;#}
+{#        }#}
+{#        table, th, td{#}
+{#            border: 1px solid #cdcdcd;#}
+{#        }#}
+{#        table th, table td{#}
+{#            padding: 10px;#}
+{#            text-align: left;#}
+{#        }#}
+{#    </style>#}
 
 </head>
 <body>
+{% block content %}
+    <style type="text/css">
 
+        /* Remove the navbar's default rounded borders and increase the bottom margin */
+
+        .navbar {
+
+            margin-bottom: 50px;
+
+            border-radius: 0;
+
+        }
+
+        /* Remove the jumbotron's default bottom margin */
+
+        .jumbotron {
+
+            margin-bottom: 0;
+
+        }
+
+        /* Add a gray background color and some padding to the footer */
+
+        footer {
+
+            background-color: #f2f2f2;
+
+            padding: 25px;
+
+        }
+
+        div {
+
+            text-align: center;
+
+        }
+
+        form{
+
+            margin: 20px 0;
+
+        }
+
+        form input, button{
+
+            padding: 5px;
+
+        }
+
+        table{
+
+            width: 100%;
+
+            margin-bottom: 20px;
+
+            border-collapse: collapse;
+
+        }
+
+        table, th, td{
+
+            border: 1px solid #cdcdcd;
+
+        }
+
+        table th, table td{
+
+            padding: 10px;
+
+            text-align: left;
+
+        }
+
+    </style>
 <div class="jumbotron">
     <div class="container text-center">
         <h1>Job Information</h1>
@@ -79,7 +150,16 @@
     <a href="/"><button type="button" class="back-to-home">Back to Home Page</button></a>
 </div>
 
+<div class='row'>
+    <div class='col-sm-12'>
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+</div>
+
 </body>
+{% endblock content %}
+<script>
+{% block jquery %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script type="text/javascript">
     var defaultData = [];
@@ -154,7 +234,7 @@
         data: {
             labels: labels,
             datasets: [{
-                label: 'Qty of parts finished',
+                label: 'Work information',
                 data: defaultData,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -187,15 +267,5 @@
     });
     }
 </script>
+{% endblock %}
 
-<div class='row'>
-    <div class='col-sm-12'>
-        <canvas id="myChart" width="400" height="400"></canvas>
-    </div>
-</div>
-{#<footer class="container-fluid text-center">#}
-{#    <p>Active work</p>#}
-{#</footer>#}
-
-</body>
-</html>

@@ -5,11 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
     <title>EDHR</title>
+      {% include 'base/js.html' %}
 
     {% include 'base/css.html' %}
     {% include 'base/bootstrap_defaults.html' %}
   </head>
+  {% include 'base/js.html' %}
   <body>
   <ul class="sidebar-nav">
    {% if user.is_authenticated %}
