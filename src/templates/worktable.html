@@ -141,92 +141,48 @@
                 }
             });
             $(".view-info").click(function(){
+
                 var i = 0;
                 $("table tbody").find('input[name="record"]').each(function(){
-                    console.log(i);
-                    if($(this).is(":checked")){
-                        console.log($(this));
-                        var result;
-                        console.log("the result was" + result);
-                        localStorage.clear('myMainKey');
-                        localStorage.clear('myMainKey1');
-                        var num = i;
-                        console.log("this is iiii" + num);
-                        localStorage.setItem('myMainKey', num);
-                        localStorage.setItem('myMainKey1', result);
-                        var data = localStorage.getItem('myMainKey1');
-                        if (data !== undefined) {
-                            console.log("we are here now");
-                            console.log(data);
-                            console.log("we are here now");
+                console.log("view info i value = " + i)
+                if($(this).is(":checked")){
+                    console.log($(this));
+                    console.log("view info i when pressed = " + i)
+                    var result;
+                    var valii = i;
+                    $.ajax({
+                        url:"/api/chart/getworktable/",
+                        method:"GET",
+                        data:"",
+                        dataType:"JSON",
+                        success:function(result){
+                            var arrayOfObjects = eval(result);
+                            console.log(arrayOfObjects[valii]["customer_ID"]);
+                            var passtochart = arrayOfObjects[valii];
+                            console.log(passtochart)
+                            {##}
+                            {#console.log("IT WORKED");#}
+                            {#console.log("i = " + i);#}
+                            {#var student = result[i];#}
+                            {#console.log("student here " + student[i]);#}
+                            {#console.log(result[i]);#}
+                            setChart(passtochart);
+                            {#removeUser(result, i )#}
+                        },
+                        error:function(xhr,status,error){
+                            console.log("error: "+error);
                         }
-                        var newinfo = localStorage.getItem('myMainKey');
-                        if (newinfo !== undefined) {
-                            console.log("we are here now 2");
-                            console.log("is this it" + newinfo);
-                             console.log("we are here now 2");
-                        }
-                        $.ajax({
-                                method: "GET",
-                                url: "/api/chart/getworktable/",
-                                success: function (data){
-                                    $.each(JSON.parse(data), function(idx, obj) {
-                                        console.log( "whats the data" + data);
-                                        console.log( "testing output");
-                                        console.log( obj.id + ':' + obj.text);
-                                    {#alert(obj.userID);#}
-                                    var labels = obj.userID;
-                                    var defaultData = obj.userName;
-                                    console.log("obj 1 = "+labels);
-                                    {#populateTable(obj);#}
-                                    setChart(data)
-                                    });
-                                    {#labels = obj.qty_finished;#}
-                                    {#defaultData = obj.qty_scrap;#}
-                                    console.log("data finished" + data.qty_finished);
-                                    console.log("data scrap" + data.qty_scrap);
-                                    {#setChart(obj)#}
-                                },
-                                error: function (error_data) {
-                                    console.log("error");
-                                    console.log(error_data)
-                                }
-                            });
+                    });
+                    $(this).parents("tr").remove();
+                }
+                else{
+                    i++;
+                    console.log("else increment" + i);
+                }
+            });
+        });
 
-                        {#$.ajax({#}
-                        {#    url:"/api/chart/getworktable/",#}
-                        {#    method:"GET",#}
-                        {#    data:"",#}
-                        {#    dataType:"JSON",#}
-                        {#    success:function(result){#}
-                                {#localStorage.setItem('myMainKey', result);#}
-                        {#        localStorage.clear('myMainKey');#}
-                        {#        localStorage.clear('myMainKey1');#}
-                        {#        var num = i;#}
-                        {#        console.log("this is iiii" + num);#}
-                        {#        localStorage.setItem('myMainKey', num);#}
-                        {#        localStorage.setItem('myMainKey1', result);#}
-                                {#window.location = "/api/chart/workinfo/";#}
-                        {#        console.log("IT WORKED");#}
-                        {#        console.log("i = " + i);#}
-                        {#        var student = result[i];#}
-                        {#        console.log("student here " + student.userID);#}
-                        {#        console.log(result);#}
-                                {#removeUser(result, i);#}
-                        {#    },#}
-                        {#    error:function(xhr,status,error){#}
-                        {#        console.log("error: "+error);#}
-                        {#    }#}
 
-                        {#$(this).parents("tr").remove();#}
-                    }
-                    else{
-                        i++;
-                        $(this).parents("tr").remove();
-                        console.log("testing here" + i);
-                    }
-                });
-            })
         });
     });
     function populateTable(usersInfo){
@@ -245,8 +201,8 @@
         console.log("num = " + num);
         var len = students.length;
         console.log("function call");
-        var student = students[i];
-        console.log(student);
+        var student = [students[i]];
+        console.log("remove student post == " + student);
         console.log(student.userID);
         $.ajax({
             url: "/student/deleteline",
@@ -263,33 +219,50 @@
         });
     }
     function setChart(obj) {
-        var json = JSON.parse(obj);
-        for (var i = 0; i<5; i++){
-            var student = json[i];
-             console.log(student[i]);
-        if (i == 4){
+
+        var student = obj;
+        {#console.log(student.["customer_ID"]);#}
+        console.log("customerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+        console.log(student["customer_ID"]);
+
+        labellllls = ["Qty Finished", "Scrap Qty"]
+        default_itemssss = [[student.qty_finished], [student.qty_scrap]]
+       datas = {
+            "labelss": labellllls,
+            "defaults": default_itemssss
+        };
+
+       labels = datas.labelss;
+       defaultData = datas.defaults;
+
+
+        {#var json = JSON.parse(obj);#}
+        {#for (var i = 0; i<5; i++){#}
+        {#    var student = json[i];#}
+        {#     console.log(student[i]);#}
+        {#if (i == 4){#}
                  {#var labelss = student.jobNum;#}
                  {#var defaultDatas = student.partID;#}
-            console.log("in here majeing the datasssssssssssssss")
-                 datas = {
-            "labelss": [student.jobNum],
-            "defaults": [student.partID],
-        };
-        labels = datas.labelss;
-         defaultData = datas.defaults;
-            console.log(student.jobNum);
-            console.log(student.partID);
+        {#    console.log("in here majeing the datasssssssssssssss")#}
+        {#         datas = {#}
+        {#    "labelss": [student.jobNum],#}
+        {#    "defaults": [student.partID],#}
+
+        {#labels = datas.labelss;#}
+        {# defaultData = datas.defaults;#}
+        {#    console.log(student.jobNum);#}
+        {#    console.log(student.partID);#}
             {#console.log("labelss" + labelss);#}
             {#console.log("defaultDatas" + defaultDatas);#}
-        }}
 
 
-        console.log("Here is the chart call"+ student.jobNum);
-        var json = JSON.parse(obj);
-        console.log("data is - "+json[1].qty_finished);
-        console.log("data is jobID - "+json["qty_finished"]);
-        console.log("Here is the chart call"+ json.jobNum);
-        console.log("make charts please");
+
+        {#console.log("Here is the chart call"+ student.jobNum);#}
+        {#var json = JSON.parse(obj);#}
+        {#console.log("data is - "+json[1].qty_finished);#}
+        {#console.log("data is jobID - "+json["qty_finished"]);#}
+        {#console.log("Here is the chart call"+ json.jobNum);#}
+        {#console.log("make charts please");#}
         console.log("default" + defaultData);
         var ctx = document.getElementById("myChart").getContext('2d');
         {#var ctx2 = document.getElementById("myChart2").getContext('2d');#}
