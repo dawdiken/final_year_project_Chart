@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <title>EDHR</title>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,35 +52,10 @@
 
 <div class="jumbotron">
     <div class="container text-center">
-        <h1>Active Work</h1>
-        <p>Table of all work</p>
+        <h1>Job Information</h1>
+
     </div>
 </div>
-
-{#<nav class="navbar navbar-inverse">#}
-{#    <div class="container-fluid">#}
-{#        <div class="navbar-header">#}
-{#            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">#}
-{#                <span class="icon-bar"></span>#}
-{#                <span class="icon-bar"></span>#}
-{#                <span class="icon-bar"></span>#}
-{#            </button>#}
-{#            <a class="navbar-brand" href="#">Logo</a>#}
-{#        </div>#}
-{#        <div class="collapse navbar-collapse" id="myNavbar">#}
-{#            <form style="text-align: center">#}
-{#                <input type="number" name="userID" placeholder="userID">#}
-{#                <input type="text" name="userName" placeholder="First Name">#}
-{#                <input type="text"  name="lname" placeholder="Last Name">#}
-{#                <input type="text"  name="email" placeholder="Email Address">#}
-{#                <input type="date"  name="dob" placeholder="Date of Birth">#}
-{#                <input type="text"  name="usern" placeholder="Username">#}
-{#                <input type="text"  name="passw" placeholder="Password"><br>#}
-{#                <input type="button" id="createuser" value="Add User">#}
-{#            </form>#}
-{#        </div>#}
-{#    </div>#}
-{#</nav>#}
 <form>
     <table align='center' id="User_table">
         <thead>
@@ -121,33 +95,19 @@
                 dataType:"JSON",
                     success:function(result){
                     $.each(JSON.parse(result), function(idx, obj) {
-	                {#alert(obj.userID);#}
 	                labels = obj.userID;
 	                defaultData = obj.userName;
-	                console.log("obj 1 = "+obj.userID)
 	                populateTable(obj);
                     });
-                    {#labels = result.userID;#}
-                    {#defaultData = result.userName;#}
-                    console.log("labels" + labels);
-                    console.log("defaultData" + defaultData);
-                    console.log("result" + result);
-                    {#populateTable(result);#}
-                    console.log("lenght");
-                    console.log(result.length);
-                },
+                    },
                 error:function(xhr,status,error){
                     console.log("error: "+error);
                 }
             });
             $(".view-info").click(function(){
-
                 var i = 0;
                 $("table tbody").find('input[name="record"]').each(function(){
-                console.log("view info i value = " + i)
                 if($(this).is(":checked")){
-                    console.log($(this));
-                    console.log("view info i when pressed = " + i)
                     var result;
                     var valii = i;
                     $.ajax({
@@ -157,27 +117,18 @@
                         dataType:"JSON",
                         success:function(result){
                             var arrayOfObjects = eval(result);
-                            console.log(arrayOfObjects[valii]["customer_ID"]);
                             var passtochart = arrayOfObjects[valii];
-                            console.log(passtochart)
-                            {##}
-                            {#console.log("IT WORKED");#}
-                            {#console.log("i = " + i);#}
-                            {#var student = result[i];#}
-                            {#console.log("student here " + student[i]);#}
-                            {#console.log(result[i]);#}
+                            console.log(passtochart);
                             setChart(passtochart);
-                            {#removeUser(result, i )#}
                         },
                         error:function(xhr,status,error){
                             console.log("error: "+error);
                         }
                     });
-                    $(this).parents("tr").remove();
                 }
                 else{
                     i++;
-                    console.log("else increment" + i);
+                    $(this).parents("tr").remove();
                 }
             });
         });
@@ -186,86 +137,18 @@
         });
     });
     function populateTable(usersInfo){
-        var table = document.getElementById("user-table");
-        var len = usersInfo.length;
-        console.log("pupulate student = " + usersInfo + "lenght" + len);
-        {#for (var i = 0; i<len; i++){#}
-        {#    var student = students[i];#}
-             {#console.log(student[i])#}
             var markup = "<tr><td><input type='checkbox' name='record'></td> <td class='fname'>" + usersInfo.jobID + "</td><td class='lname'>" + usersInfo.jobNum + "</td><td class='email'>" + usersInfo.active + "</td><td class='dob'>" + usersInfo.customer_ID + "</td><td class='usern'>" + usersInfo.department_ID + "</td><td class='pwd'>" + usersInfo.partID + "</td><td class='pwd'>" + usersInfo.machineID + "</td></tr>";
             $("table tbody").append(markup);
     }
-    function removeUser(students, i){
-        var table = document.getElementById("student-table");
-        var num = i;
-        console.log("num = " + num);
-        var len = students.length;
-        console.log("function call");
-        var student = [students[i]];
-        console.log("remove student post == " + student);
-        console.log(student.userID);
-        $.ajax({
-            url: "/student/deleteline",
-            method: "POST",
-            data: student,
-            dataType: "HTML",
-            success: function (result) {
-                console.log(result);
-                $('#response').html(result);
-            },
-            error: function (xhr, status, error) {
-                console.log("error: " + error);
-            }
-        });
-    }
     function setChart(obj) {
+        var jobinfo = obj;
+        console.log(jobinfo["customer_ID"]);
 
-        var student = obj;
-        {#console.log(student.["customer_ID"]);#}
-        console.log("customerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-        console.log(student["customer_ID"]);
+        labels = ["Qty Finished", "Scrap Qty"]
+        defaultData = [[jobinfo.qty_finished], [jobinfo.qty_scrap]]
 
-        labellllls = ["Qty Finished", "Scrap Qty"]
-        default_itemssss = [[student.qty_finished], [student.qty_scrap]]
-       datas = {
-            "labelss": labellllls,
-            "defaults": default_itemssss
-        };
-
-       labels = datas.labelss;
-       defaultData = datas.defaults;
-
-
-        {#var json = JSON.parse(obj);#}
-        {#for (var i = 0; i<5; i++){#}
-        {#    var student = json[i];#}
-        {#     console.log(student[i]);#}
-        {#if (i == 4){#}
-                 {#var labelss = student.jobNum;#}
-                 {#var defaultDatas = student.partID;#}
-        {#    console.log("in here majeing the datasssssssssssssss")#}
-        {#         datas = {#}
-        {#    "labelss": [student.jobNum],#}
-        {#    "defaults": [student.partID],#}
-
-        {#labels = datas.labelss;#}
-        {# defaultData = datas.defaults;#}
-        {#    console.log(student.jobNum);#}
-        {#    console.log(student.partID);#}
-            {#console.log("labelss" + labelss);#}
-            {#console.log("defaultDatas" + defaultDatas);#}
-
-
-
-        {#console.log("Here is the chart call"+ student.jobNum);#}
-        {#var json = JSON.parse(obj);#}
-        {#console.log("data is - "+json[1].qty_finished);#}
-        {#console.log("data is jobID - "+json["qty_finished"]);#}
-        {#console.log("Here is the chart call"+ json.jobNum);#}
-        {#console.log("make charts please");#}
         console.log("default" + defaultData);
         var ctx = document.getElementById("myChart").getContext('2d');
-        {#var ctx2 = document.getElementById("myChart2").getContext('2d');#}
         var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -307,7 +190,6 @@
 
 <div class='row'>
     <div class='col-sm-12'>
-        Click <a href="http://35.190.172.251:8000/api/chart/users_info/">here</a> to go to the json that makes this chart.
         <canvas id="myChart" width="400" height="400"></canvas>
     </div>
 </div>
