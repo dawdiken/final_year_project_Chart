@@ -106,8 +106,10 @@
 </div>
 
 </body>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script type="text/javascript">
+    var defaultData = [];
+    var labels = [];
     $(document).ready(function() {
         $(function () {
             var defaultData = [];
@@ -164,6 +166,33 @@
                             console.log("is this it" + newinfo);
                              console.log("we are here now 2");
                         }
+                        $.ajax({
+                                method: "GET",
+                                url: "/api/chart/getworktable/",
+                                success: function (data){
+                                    $.each(JSON.parse(data), function(idx, obj) {
+                                        console.log( "whats the data" + data);
+                                        console.log( "testing output");
+                                        console.log( obj.id + ':' + obj.text);
+                                    {#alert(obj.userID);#}
+                                    var labels = obj.userID;
+                                    var defaultData = obj.userName;
+                                    console.log("obj 1 = "+labels);
+                                    {#populateTable(obj);#}
+                                    setChart(data)
+                                    });
+                                    {#labels = obj.qty_finished;#}
+                                    {#defaultData = obj.qty_scrap;#}
+                                    console.log("data finished" + data.qty_finished);
+                                    console.log("data scrap" + data.qty_scrap);
+                                    {#setChart(obj)#}
+                                },
+                                error: function (error_data) {
+                                    console.log("error");
+                                    console.log(error_data)
+                                }
+                            });
+
                         {#$.ajax({#}
                         {#    url:"/api/chart/getworktable/",#}
                         {#    method:"GET",#}
@@ -233,12 +262,85 @@
             }
         });
     }
+    function setChart(obj) {
+        var json = JSON.parse(obj);
+        for (var i = 0; i<5; i++){
+            var student = json[i];
+             console.log(student[i]);
+        if (i == 4){
+                 {#var labelss = student.jobNum;#}
+                 {#var defaultDatas = student.partID;#}
+            console.log("in here majeing the datasssssssssssssss")
+                 datas = {
+            "labelss": [student.jobNum],
+            "defaults": [student.partID],
+        };
+        labels = datas.labelss;
+         defaultData = datas.defaults;
+            console.log(student.jobNum);
+            console.log(student.partID);
+            {#console.log("labelss" + labelss);#}
+            {#console.log("defaultDatas" + defaultDatas);#}
+        }}
+
+
+        console.log("Here is the chart call"+ student.jobNum);
+        var json = JSON.parse(obj);
+        console.log("data is - "+json[1].qty_finished);
+        console.log("data is jobID - "+json["qty_finished"]);
+        console.log("Here is the chart call"+ json.jobNum);
+        console.log("make charts please");
+        console.log("default" + defaultData);
+        var ctx = document.getElementById("myChart").getContext('2d');
+        {#var ctx2 = document.getElementById("myChart2").getContext('2d');#}
+        var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Qty of parts finished',
+                data: defaultData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+    }
 </script>
 
-
-<footer class="container-fluid text-center">
-    <p>Active work</p>
-</footer>
+<div class='row'>
+    <div class='col-sm-12'>
+        Click <a href="http://35.190.172.251:8000/api/chart/users_info/">here</a> to go to the json that makes this chart.
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+</div>
+{#<footer class="container-fluid text-center">#}
+{#    <p>Active work</p>#}
+{#</footer>#}
 
 </body>
 </html>

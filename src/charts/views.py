@@ -216,7 +216,7 @@ class displayWork(APIView):
 
             # query = ("select * from users")
 
-            query = ("SELECT * FROM workon")
+            query = ("SELECT * FROM workon_copy")
 
 
             cursor.execute(query)
@@ -234,8 +234,10 @@ class displayWork(APIView):
                 department_ID = row[4]
                 partID = row[5]
                 machineID = row[6]
+                qty_finished = row[7]
+                qty_scrap = row[8]
                 response.append({'jobID': jobID, 'jobNum': jobNum, 'active': active, 'customer_ID': customer_ID,
-                                 'department_ID': department_ID, 'partID': partID, 'machineID': machineID})
+                                 'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap})
             print("response json" + json.dumps(response))
 
         finally:
