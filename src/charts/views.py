@@ -196,6 +196,7 @@ class workinfo(View):
         #     return redirect('/permissionredirect')
         return render(request, 'showjob.html')
 
+
 class displayWork(APIView):
     """
     * Requires token authentication.
@@ -233,9 +234,21 @@ class displayWork(APIView):
                 customer_ID = row[3]
                 department_ID = row[4]
                 partID = row[5]
-                machineID = row[6]
-                qty_finished = row[7]
-                qty_scrap = row[8]
+                batchNumber = row[6]
+                qtyOrdered = row[7]
+                machineID= row[8]
+                qty_finished = row[9]
+                qty_scrap = row[10]
+
+                # jobID = row[0]
+                # jobNum = row[1]
+                # active = row[2]
+                # customer_ID = row[3]
+                # department_ID = row[4]
+                # partID = row[5]
+                # machineID = row[6]
+                # qty_finished = row[7]
+                # qty_scrap = row[8]
                 response.append({'jobID': jobID, 'jobNum': jobNum, 'active': active, 'customer_ID': customer_ID,
                                  'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap})
             print("response json" + json.dumps(response))

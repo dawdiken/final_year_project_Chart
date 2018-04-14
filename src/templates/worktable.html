@@ -226,8 +226,8 @@
         var jobinfo = obj;
         console.log(jobinfo["customer_ID"]);
 
-        labels = ["Qty Finished", "Scrap Qty"]
-        defaultData = [[jobinfo.qty_finished], [jobinfo.qty_scrap]]
+        labels = ["Qty Finished", "Scrap Qty", "Hours Worked"];
+        defaultData = [[jobinfo.qty_finished], [jobinfo.qty_scrap], 10];
 
         console.log("default" + defaultData);
         var ctx = document.getElementById("myChart").getContext('2d');
