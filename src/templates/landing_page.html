@@ -2,14 +2,93 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-   <li>Welcome back: {{ user.get_username }}</li>
-   <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-   <li><a href="{% url 'Data_users'%}?next={{request.path}}">Chart users</a></li>
-    <li><a href="{% url 'usertable'%}?next={{request.path}}">Active Work </a></li>
+        <!-- Header -->
+  <div class="w3-container" style="margin-top:40px" id="showcase">
+    <img src="https://www.lockfy.com/wp-content/uploads/2017/04/manufacturing-png-23.png" alt="Avatar" class="avatar" style="width:200px;height:200px;">
+      <img src="http://www.domainpulse.com/wp-content/uploads/2017/08/ntldstats_logo.png" alt="Avatar" class="avatar" style="width:200px;height:200px;">
+
+      <h6> </h6>
+    <h1 class="w3-jumbo"><b>User Home</b></h1>
+    <h1 class="w3-xxxlarge w3-text-red"><b>Welcome back: {{ user.get_username }}</b></h1>
+    <hr style="width:500px;border:5px solid red" class="w3-round">
+  </div>
+   <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+   <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'Data_users'%}?next={{request.path}}">Chart users</a></li>
+    <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'usertable'%}?next={{request.path}}">Active Work </a></li>
    {% else %}
-        <p>Please Log in:</p>
-   <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+        <div class="w3-container" style="margin-top:80px" id="showcase">
+        <img src="https://www.lockfy.com/wp-content/uploads/2017/04/manufacturing-png-23.png" alt="Avatar" class="avatar" style="width:200px;height:200px;">
+            <h6> </h6>
+            <h1 class="w3-jumbo"><b>User Home</b></h1>
+        <h1 class="w3-xxxlarge w3-text-red"><b>Please log in </b></h1>
+        <hr style="width:500px;border:5px solid red" class="w3-round">
+    </div>
+    <button class="button" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+
+    <div id="id01" class="modal">
+        <form class="modal-content animate" method="post"  action="{% url 'login' %}">
+    <div class="imgcontainer">
+        {% csrf_token %}
+
+    </div>
+
+    <div class="container">
+      {% csrf_token %}
+                <table class="table">
+                    {% csrf_token %}
+                    <tr>
+                        <label for="id_username"><b>Username</b></label>
+                        <input id="id_username" name="username" placeholder="Enter Username" name="id_username"
+                                   type="text" class="form-control"></td>
+
+
+                        <label for="id_password">Password</label>
+                        <input id="id_password" name="password" placeholder="Enter Password"
+                                   type="password" class="form-control"></td>
+                    </tr>
+                </table>
+                {% if form.errors %}
+                    <p class=" label label-danger">
+                        Your username and password didn't match.
+                        Please try again.
+                    </p>
+                {% endif %}
+
+                <input type="submit" value="Login"
+                       class="btn btn-primary pull-right" />
+                <input type="hidden" name="next" value="{{ next }}" />
+
+    <div class="container" style="background-color:#f1f1f1">
+
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+    </div>
+  </form>
    {% endif %}
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 {% endblock %}
 

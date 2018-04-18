@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'charts.wsgi.application'
 #     }
 # }
 
-LOGIN_REDIRECT_URL = '/api/chart/this/'
+LOGIN_REDIRECT_URL = '/'
 
 DATABASES = {
     'default': {

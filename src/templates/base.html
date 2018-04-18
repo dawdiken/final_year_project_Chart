@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+h6 {
+    border-bottom: 5px solid red;
+}
+
+/* Change color on hover */
+.sidenav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
     <title>EDHR</title>
       {% include 'base/js.html' %}
 
@@ -14,10 +45,11 @@
   </head>
   {% include 'base/js.html' %}
   <body>
-  <ul class="sidebar-nav">
+  <ul class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:200px;font-weight:bold;" id="mySidebar">
    {% if user.is_authenticated %}
    <li>User: {{ user.get_username }}</li>
-   <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+    <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+    <li><a href="{% url 'usertable'%}?next={{request.path}}">View Active Work </a></li>
    {% else %}
    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
    {% endif %}

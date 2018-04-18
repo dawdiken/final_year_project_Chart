@@ -2,9 +2,9 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-   <li>Sorry {{ user.get_username }} you do not have the correct permissions to acces that page: </li>
-   <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-   <li><a href="{% url 'Data_users'%}?next={{request.path}}">Chart users</a></li>
+        <img src="https://cdn1.iconfinder.com/data/icons/jetflat-multimedia-vol-4/90/0042_099_lock_access_denied_blocked-512.png" alt="Avatar" class="avatar" style="width:200px;height:200px;">
+        <li>Sorry {{ user.get_username }} you do not have the correct permissions to acces that page: </li>
+        <li><a href="{% url 'homeView'%}?next={{request.path}}">Return to home page</a></li>
    {% else %}
         <p>Please Log in:</p>
    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
