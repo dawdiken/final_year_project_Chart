@@ -21,6 +21,7 @@ from .views import get_data, ChartUsers, homeView, Data_users, permissionredirec
 urlpatterns = [
     url(r'^$', homeView, name='homeView'),
     url(r'^permissionredirect$', permissionredirect, name='permissionredirect'),
+    url(r'^about$', permissionredirect, name='about'),
     url(r'^api/chart/users/$', Data_users.as_view(), name='Data_users'),
     url(r'^api/data/$', get_data, name='api-data'),
     url(r'^api/chart/users_info/$', ChartUsers.as_view()),

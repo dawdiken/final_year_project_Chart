@@ -47,9 +47,10 @@ body {font-size:16px;}
   <body>
   <ul class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:200px;font-weight:bold;" id="mySidebar">
    {% if user.is_authenticated %}
-   <li>User: {{ user.get_username }}</li>
-    <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-    <li><a href="{% url 'usertable'%}?next={{request.path}}">View Active Work </a></li>
+        <li>User: {{ user.get_username }}</li>
+        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+        <li><a href="{% url 'usertable'%}?next={{request.path}}">View Active Work</a></li>
+        <li><a href="{% url 'about'%}?next={{request.path}}">About</a></li>
    {% else %}
    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
    {% endif %}
