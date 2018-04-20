@@ -12,9 +12,12 @@
     <h1 class="w3-xxxlarge w3-text-red"><b>Welcome back: {{ user.get_username }}</b></h1>
     <hr style="width:500px;border:5px solid red" class="w3-round">
   </div>
-   <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-   <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'Data_users'%}?next={{request.path}}">Chart users</a></li>
-    <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'usertable'%}?next={{request.path}}">Active Work </a></li>
+    <div>
+        <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+        <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'Data_users'%}?next={{request.path}}">Chart users</a></li>
+        <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'Alltable'%}?next={{request.path}}"> View all Work </a></li>
+        <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'usertable'%}?next={{request.path}}">View Active Work </a></li>
+    </div>
    {% else %}
 
 
@@ -54,8 +57,6 @@
                         <label for="id_username"><b>Username</b></label>
                         <input id="id_username" name="username" placeholder="Enter Username" name="id_username"
                                    type="text" class="form-control"></td>
-
-
                         <label for="id_password">Password</label>
                         <input id="id_password" name="password" placeholder="Enter Password"
                                    type="password" class="form-control"></td>

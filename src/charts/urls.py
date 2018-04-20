@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .views import get_data, ChartUsers, homeView, Data_users, permissionredirect, displayUsers, usertable, displayWork, worktable,workinfo, about
+
+
+from .views import get_data, ChartUsers, homeView, Data_users, permissionredirect, displayUsers, usertable, displayActiveWork, displayAllWork, worktable, allWorktable, workinfo, about
 
 urlpatterns = [
     url(r'^$', homeView, name='homeView'),
@@ -26,15 +28,15 @@ urlpatterns = [
     url(r'^api/data/$', get_data, name='api-data'),
     url(r'^api/chart/users_info/$', ChartUsers.as_view()),
     url(r'^admin/', admin.site.urls),
-    # url(r'^setcol', set_color , name='set_col'),
-    # url(r'^showcol', show_color , name='set_col'),
     url('accounts/', include('django.contrib.auth.urls')),
-
     url(r'^api/chart/testing/$', displayUsers.as_view()),
     url(r'^api/chart/table/$', usertable.as_view(), name='usertable'),
-
-    url(r'^api/chart/getworktable/$', displayWork.as_view()),
+    url(r'^api/chart/getworktableActive/$', displayActiveWork.as_view()),
+    url(r'^api/chart/getworktableAll/$', displayAllWork.as_view()),
     url(r'^api/chart/worktable/$', worktable.as_view(), name='usertable'),
+    url(r'^api/chart/allworktable/$', allWorktable.as_view(), name='Alltable'),
+
+
     url(r'^api/chart/workinfo/$', workinfo.as_view(), name='workinfo'),
 ]
 

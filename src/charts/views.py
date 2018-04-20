@@ -190,6 +190,14 @@ class worktable(View):
             return redirect('/permissionredirect')
         return render(request, 'worktable.html')
 
+class allWorktable(View):
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+        if not request.user.email.endswith('@gmail.com'):
+            return redirect('/permissionredirect')
+        return render(request, 'allwork.html')
+
 class workinfo(View):
     def get(self, request, *args, **kwargs):
         # if not request.user.is_authenticated:
@@ -199,7 +207,7 @@ class workinfo(View):
         return render(request, 'showjob.html')
 
 
-class displayWork(APIView):
+class displayAllWork(APIView):
     """
     * Requires token authentication.
     * Only admin users are able to access this view.
@@ -251,6 +259,60 @@ class displayWork(APIView):
                 # machineID = row[6]
                 # qty_finished = row[7]
                 # qty_scrap = row[8]
+                response.append({'jobID': jobID, 'jobNum': jobNum, 'active': active, 'customer_ID': customer_ID,
+                                 'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap})
+            print("response json" + json.dumps(response))
+
+        finally:
+            cursor.close()
+            cnx.close()
+
+        data2 = json.dumps(response)
+        # print (data2)
+        return JsonResponse(json.dumps(response), safe=False)
+
+
+class displayActiveWork(APIView):
+    """
+    * Requires token authentication.
+    * Only admin users are able to access this view.
+    """
+    # login_url = '/login/'
+    # redirect_field_name = 'redirect_to'
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        try:
+            cnx = pymysql.connect(host="35.184.175.243",  # your host, usually localhost
+                               user="root",  # your username
+                               passwd="test12",  # your password
+                               db="engineering")  # name of the data base
+            cursor = cnx.cursor()
+
+            # query = ("select * from users")
+            value = 'true'
+            query = ("SELECT * FROM workon_copy WHERE active = %s")
+
+            #cursor.execute("SELECT FROM tablename WHERE fieldname = %s", [value])
+            cursor.execute(query, value)
+
+            response = []
+            results = cursor.fetchall()
+            print(results)
+
+            for row in results:
+                jobID = row[0]
+                jobNum = row[1]
+                active = row[2]
+                customer_ID = row[3]
+                department_ID = row[4]
+                partID = row[5]
+                batchNumber = row[6]
+                qtyOrdered = row[7]
+                machineID= row[8]
+                qty_finished = row[9]
+                qty_scrap = row[10]
                 response.append({'jobID': jobID, 'jobNum': jobNum, 'active': active, 'customer_ID': customer_ID,
                                  'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap})
             print("response json" + json.dumps(response))
