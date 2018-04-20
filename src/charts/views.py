@@ -32,7 +32,7 @@ def get_data(request, *args, **kwargs):
 def permissionredirect(request, *args, **kwargs):
     return render(request, 'nopermission.html')
 
-def permissionredirect(request, *args, **kwargs):
+def about(request, *args, **kwargs):
     return render(request, 'about.html')
 
 
