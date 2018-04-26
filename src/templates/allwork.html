@@ -116,14 +116,14 @@
 
             padding: 10px;
 
-            text-align: left;
+            text-align: center;
 
         }
 
     </style>
 <div class="jumbotron">
     <div class="container text-center">
-        <h1>Active Work</h1>
+        <h1>All Works Orders</h1>
 
     </div>
 </div>
@@ -155,6 +155,12 @@
         <canvas id="myChart" width="400" height="400"></canvas>
         <h1>  </h1>
         <h1>  </h1>
+         <form action="vote" method="post">
+    {% csrf_token %}
+    <label for="your_name">Your name: </label>
+    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+    <input type="submit" value="OK">
+</form>
     </div>
 </div>
 

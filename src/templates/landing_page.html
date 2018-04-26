@@ -1,25 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% if user.is_authenticated %}
+{% if user.is_authenticated %}
         <!-- Header -->
-  <div class="w3-container" style="margin-top:40px" id="showcase">
-    <img src="https://www.lockfy.com/wp-content/uploads/2017/04/manufacturing-png-23.png" alt="Avatar" class="avatar" style="width:200px;height:200px;">
-      <img src="http://www.domainpulse.com/wp-content/uploads/2017/08/ntldstats_logo.png" alt="Avatar" class="avatar" style="width:200px;height:200px;">
-
-      <h6> </h6>
-    <h1 class="w3-jumbo"><b>User Home</b></h1>
-    <h1 class="w3-xxxlarge w3-text-red"><b>Welcome back: {{ user.get_username }}</b></h1>
-    <hr style="width:500px;border:5px solid red" class="w3-round">
-  </div>
+    <div class="w3-container" style="margin-top:40px" id="showcase">
+        <img src="https://www.lockfy.com/wp-content/uploads/2017/04/manufacturing-png-23.png" alt="Avatar" class="avatar" style="width:200px;height:200px;">
+        <img src="http://www.domainpulse.com/wp-content/uploads/2017/08/ntldstats_logo.png" alt="Avatar" class="avatar" style="width:200px;height:200px;">
+        <h6> </h6>
+        <h1 class="w3-jumbo"><b>User Home</b></h1>
+        <h1 class="w3-xxxlarge w3-text-red"><b>Welcome back: {{ user.get_username }}</b></h1>
+        <hr style="width:500px;border:5px solid red" class="w3-round">
+    </div>
     <div>
         <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
         <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'Data_users'%}?next={{request.path}}">Chart users</a></li>
         <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'Alltable'%}?next={{request.path}}"> View all Work </a></li>
         <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'usertable'%}?next={{request.path}}">View Active Work </a></li>
     </div>
-   {% else %}
-
+{% else %}
 
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>

@@ -82,6 +82,7 @@ WSGI_APPLICATION = 'charts.wsgi.application'
 # }
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000'
 
 DATABASES = {
     'default': {

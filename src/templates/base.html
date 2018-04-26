@@ -51,6 +51,7 @@ body {font-size:16px;}
        <li><a href="{% url 'homeView'%}?next={{request.path}}">Home</a></li>
        <li><a href="{% url 'Alltable'%}?next={{request.path}}">View All Work</a></li>
        <li><a href="{% url 'usertable'%}?next={{request.path}}">View Active Work</a></li>
+       <li><a href="{% url 'changeWork'%}?next={{request.path}}">Change Work</a></li>
        <li><a href="{% url 'about'%}?next={{request.path}}">About</a></li>
        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
    {% else %}

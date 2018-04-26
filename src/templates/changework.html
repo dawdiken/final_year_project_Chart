@@ -1,0 +1,394 @@
+{% extends 'base.html' %}
+
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">#}
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>#}
+{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
+{#    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>#}
+{#    <style type="text/css">#}
+{#        /* Remove the navbar's default rounded borders and increase the bottom margin */#}
+{#        .navbar {#}
+{#            margin-bottom: 50px;#}
+{#            border-radius: 0;#}
+{#        }#}
+{#        /* Remove the jumbotron's default bottom margin */#}
+{#        .jumbotron {#}
+{#            margin-bottom: 0;#}
+{#        }#}
+{#        /* Add a gray background color and some padding to the footer */#}
+{#        footer {#}
+{#            background-color: #f2f2f2;#}
+{#            padding: 25px;#}
+{#        }#}
+{#        div {#}
+{#            text-align: center;#}
+{#        }#}
+{#        form{#}
+{#            margin: 20px 0;#}
+{#        }#}
+{#        form input, button{#}
+{#            padding: 5px;#}
+{#        }#}
+{#        table{#}
+{#            width: 100%;#}
+{#            margin-bottom: 20px;#}
+{#            border-collapse: collapse;#}
+{#        }#}
+{#        table, th, td{#}
+{#            border: 1px solid #cdcdcd;#}
+{#        }#}
+{#        table th, table td{#}
+{#            padding: 10px;#}
+{#            text-align: left;#}
+{#        }#}
+{#    </style>#}
+
+</head>
+<body>
+{% block content %}
+    <style type="text/css">
+
+        /* Remove the navbar's default rounded borders and increase the bottom margin */
+
+        .navbar {
+
+            margin-bottom: 50px;
+
+            border-radius: 0;
+
+        }
+
+        /* Remove the jumbotron's default bottom margin */
+
+        .jumbotron {
+
+            margin-bottom: 0;
+
+        }
+
+        /* Add a gray background color and some padding to the footer */
+
+        footer {
+
+            background-color: #f2f2f2;
+
+            padding: 25px;
+
+        }
+
+        div {
+
+            text-align: center;
+
+        }
+
+        form{
+
+            margin: 20px 0;
+
+        }
+
+        form input, button{
+
+            padding: 5px;
+
+        }
+
+        table{
+
+            width: 100%;
+
+            margin-bottom: 20px;
+
+            border-collapse: collapse;
+
+        }
+
+        table, th, td{
+
+            border: 1px solid #cdcdcd;
+
+        }
+
+        table th, table td{
+
+            padding: 10px;
+
+            text-align: center;
+
+        }
+
+
+{##panel, #flip {#}
+{#    padding: 5px;#}
+{#    text-align: center;#}
+{#    background-color: #e5eecc;#}
+{#    border: solid 1px #c3c3c3;#}
+{#}#}
+{##}
+{##panel {#}
+{#    padding: 50px;#}
+{#    display: none;#}
+{#}#}
+.button{
+  border:1px solid #333;
+  background:#6479fd;
+}
+.button:hover{
+  background:#a4a9fd;
+}
+
+.choose{
+  display:none;
+}
+.dialog{
+  border:5px solid #666;
+  padding:10px;
+  background:#3A3A3A;
+  position:absolute;
+  display:none;
+}
+.dialog label{
+  display:inline-block;
+  color:#cecece;
+}
+input[type=text]{
+  border:1px solid #333;
+  display:inline-block;
+  margin:5px;
+}
+#btnOK{
+  border:1px solid #000;
+  background:#ff9999;
+  margin:5px;
+}
+
+#btnOK:hover{
+  border:1px solid #000;
+  background:#ffacac;
+}
+
+    </style>
+<div class="jumbotron">
+    <div class="container text-center">
+        <h1>Change Works Orders</h1>
+
+    </div>
+</div>
+<form>
+    <table align='center' id="User_table">
+        <thead>
+        <tr id="myTable">
+            <th>Select</th>
+            <th>Job Number</th>
+            <th>Is Job Active</th>
+            <th>Customer Name</th>
+            <th>Department Name</th>
+            <th>Part Number</th>
+            <th>Machine Number</th>
+            <th>Qty Ordered</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</form>
+<div>
+    <button type="button" class="view-info" id="view-info">Select Work Order</button>
+{#    <a href="/"><button type="button" class="back-to-home">Back to Home Page</button></a>#}
+</div>
+{#<div class='row'>#}
+{#    <div class='col-sm-12'>#}
+{#        <canvas id="myChart" width="400" height="400"></canvas>#}
+{#        <h1>  </h1>#}
+{#        <h1>  </h1>#}
+{#         <form action="vote" method="post">#}
+{#    {% csrf_token %}#}
+{#    <label for="your_name">Your name: </label>#}
+{#    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">#}
+{#    <input type="submit" value="OK">#}
+{#</form>#}
+{#    </div>#}
+{#</div>#}
+{#<div id="panel">Hello world!</div>#}
+{#     <div>#}
+{#    <input id="panel" type="text" name="your_name" value="{{ current_name }}" type="submit" value="OK">#}
+{#    <input type="submit" value="OK">#}
+{#</div>#}
+
+<div class="choose" id="panelChange">
+  <input type="button" class="button" value="Change Qty Ordered" id="btn1">
+  <input type="button" class="button" value="2" id="btn2">
+  <input type="button" class="button" value="3" id="btn3">
+  <br>
+    <form action="vote" method="post">
+{#  <input type="text" id="valueFromMyModal">#}
+  <label for="your_name">Your name: </label>
+  <input id="valueFromMyModal" type="text" name="your_name" value="{{ valueFromMyModal }}">
+        <input id="dueDate" type="text" name="due_date" value="{{ dueDate }}">
+  <input type="submit" value="OK">
+        {% csrf_token %}
+  <!-- Dialog Box-->
+  <div class="dialog" id="myform">
+    <form>
+        <input onclick="myFunction()" type="button" value="Ok" id="btnOK">
+      <label id="valueFromMyButton">
+      </label>
+      <input type="text" id="name">
+      <div align="center">
+
+      </div>
+    </form>
+  </div>
+</div>
+    <button onclick="myFunction()">Try it</button>
+    <p id="demo"></p>
+</body>
+{% endblock content %}
+
+{% block jquery %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script type="text/javascript">
+    var defaultData = [];
+    var labels = [];
+    $(document).ready(function() {
+        $(function () {
+            var defaultData = [];
+            var labels = [];
+            $.ajax({
+                url:"/api/chart/getworktableAll/",
+                method:"GET",
+                data:"",
+                dataType:"JSON",
+                    success:function(result){
+                    $.each(JSON.parse(result), function(idx, obj) {
+	                labels = obj.userID;
+	                defaultData = obj.userName;
+	                populateTable(obj);
+                    });
+                    },
+                error:function(xhr,status,error){
+                    console.log("error: "+error);
+                }
+            });
+            $(".view-info").click(function(){
+                var i = 0;
+                $("table tbody").find('input[name="record"]').each(function(){
+                if($(this).is(":checked")){
+                    var result;
+                    var valii = i;
+                    $.ajax({
+                        url:"/api/chart/getworktableAll/",
+                        method:"GET",
+                        data:"",
+                        dataType:"JSON",
+                        success:function(result){
+                            var arrayOfObjects = eval(result);
+                            var passtochart = arrayOfObjects[valii];
+                             populateTable2();
+                            console.log(passtochart);
+                            {#setChart(passtochart);#}
+                        },
+                        error:function(xhr,status,error){
+                            console.log("error: "+error);
+                        }
+                    });
+                }
+                else{
+                    i++;
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+              $(".view-info").click(function(){
+                var i = 0;
+                $("table tbody").find('input[name="record"]').each(function(){
+                if($(this).is(":checked")){
+                    var result;
+                    var valii = i;
+                    $.ajax({
+                        url:"/api/chart/getworktableAll/",
+                        method:"GET",
+                        data:"",
+                        dataType:"JSON",
+                        success:function(result){
+                            var arrayOfObjects = eval(result);
+                            var passtochart = arrayOfObjects[valii];
+                             populateTable2();
+                            console.log(passtochart);
+                            {#setChart(passtochart);#}
+                        },
+                        error:function(xhr,status,error){
+                            console.log("error: "+error);
+                        }
+                    });
+                }
+                else{
+                    i++;
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+        });
+    });
+    function populateTable(usersInfo){
+            var markup = "<tr><td><input type='checkbox' name='record'></td> <td class='jobNum'>" + usersInfo.jobNum + "</td><td class='active'>" + usersInfo.active + "</td><td class='dob'>" + usersInfo.customer_ID + "</td><td class='usern'>" + usersInfo.department_ID + "</td><td class='pwd'>" + usersInfo.partID + "</td><td class='pwd'>" + usersInfo.machineID + "</td><td class='pwd'>" + usersInfo.qtyOrdered + "</td></tr>";
+            $("table tbody").append(markup);
+    }
+
+
+</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+{#$(document).ready(function(){#}
+{#    $("#flip").click(function(){#}
+{#        $("#panel").slideDown("slow");#}
+{#    });#}
+
+$(function() {
+    $("#view-info").click(function() {
+        //$("#myform #valueFromMyButton").text($(this).val().trim());
+        //$("#myform input[type=text]").val('');
+        $("#view-info").hide();
+        $("#panelChange").show(1000);
+
+    });
+    $("#btnOK").click(function() {
+        $("#valueFromMyModal").val($("#myform input[type=text]").val().trim());
+        $("#myform").hide(400);
+    });
+});
+$(function() {
+    $(".button").click(function() {
+        $("#myform #valueFromMyButton").text($(this).val().trim());
+        $("#myform input[type=text]").val('');
+        $("#myform").show(500);
+        $('[data-column-id=market]').text()
+    });
+    $("#btnOK").click(function() {
+        $("#valueFromMyModal").val($("#myform input[type=text]").val().trim());
+        $("#myform").hide(400);
+    });
+});
+function myFunction() {
+    {#var row = document.getElementById("myTable");#}
+    {#row.deleteCell(0);#}
+    $('#myTable tr').each(function () {
+        var customerId = $(this).find(".pwd").html();
+        console.log(customerId);
+    });
+
+
+    //alert(document.getElementById("myTable").rows[1].cells[7].innerHTML);
+
+}
+function populateTable2(){
+    var cusrname = $("table tbody").find(".jobNum").html();
+    console.log(cusrname);
+}
+</script>
+{% endblock %}
+

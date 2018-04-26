@@ -190,6 +190,14 @@ class worktable(View):
             return redirect('/permissionredirect')
         return render(request, 'worktable.html')
 
+class changeWork(View):
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+        if not request.user.email.endswith('@gmail.com'):
+            return redirect('/permissionredirect')
+        return render(request, 'changework.html')
+
 class allWorktable(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -260,8 +268,95 @@ class displayAllWork(APIView):
                 # qty_finished = row[7]
                 # qty_scrap = row[8]
                 response.append({'jobID': jobID, 'jobNum': jobNum, 'active': active, 'customer_ID': customer_ID,
-                                 'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap})
+                                 'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap, 'qtyOrdered': qtyOrdered})
             print("response json" + json.dumps(response))
+
+        finally:
+            cursor.close()
+            cnx.close()
+
+        data2 = json.dumps(response)
+        # print (data2)
+        return JsonResponse(json.dumps(response), safe=False)
+
+
+class changeWorkInfo(APIView):
+    """
+    * Requires token authentication.
+    * Only admin users are able to access this view.
+    """
+    # login_url = '/login/'
+    # redirect_field_name = 'redirect_to'
+    authentication_classes = []
+    permission_classes = []
+
+    # def vote(request):
+    #     # if this is a POST request we need to process the form data
+    #     if request.method == 'POST':
+    #         print("in here")
+    #         hello = request.body
+    #         print(hello)
+    #         body_unicode = request.body.decode('utf-8')
+    #         body_data = body_unicode
+    #         print(body_data)
+    #         print(request.POST.get('your_name'))
+    #         print(request.POST.get('due_date'))
+
+    def get(self, request, format=None):
+        if request.method == 'POST':
+            print("in here")
+            hello = request.body
+            print(hello)
+            body_unicode = request.body.decode('utf-8')
+            body_data = body_unicode
+            print(body_data)
+            print(request.POST.get('your_name'))
+            print(request.POST.get('due_date'))
+
+        try:
+            cnx = pymysql.connect(host="35.184.175.243",  # your host, usually localhost
+                               user="root",  # your username
+                               passwd="test12",  # your password
+                               db="engineering")  # name of the data base
+            cursor = cnx.cursor()
+
+            # query = ("select * from users")
+
+            query = ("SELECT * FROM workon_copy")
+
+
+            cursor.execute(query)
+
+            response = []
+
+            results = cursor.fetchall()
+            #print(results)
+
+            for row in results:
+                jobID = row[0]
+                jobNum = row[1]
+                active = row[2]
+                customer_ID = row[3]
+                department_ID = row[4]
+                partID = row[5]
+                batchNumber = row[6]
+                qtyOrdered = row[7]
+                machineID= row[8]
+                qty_finished = row[9]
+                qty_scrap = row[10]
+
+                # jobID = row[0]
+                # jobNum = row[1]
+                # active = row[2]
+                # customer_ID = row[3]
+                # department_ID = row[4]
+                # partID = row[5]
+                # machineID = row[6]
+                # qty_finished = row[7]
+                # qty_scrap = row[8]
+                response.append({'jobID': jobID, 'jobNum': jobNum, 'active': active, 'customer_ID': customer_ID,
+                                 'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap, 'qtyOrdered': qtyOrdered})
+            #print("response json" + json.dumps(response))
 
         finally:
             cursor.close()
@@ -314,7 +409,7 @@ class displayActiveWork(APIView):
                 qty_finished = row[9]
                 qty_scrap = row[10]
                 response.append({'jobID': jobID, 'jobNum': jobNum, 'active': active, 'customer_ID': customer_ID,
-                                 'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap})
+                                 'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap, 'qtyOrdered': qtyOrdered})
             print("response json" + json.dumps(response))
 
         finally:
@@ -324,6 +419,37 @@ class displayActiveWork(APIView):
         data2 = json.dumps(response)
         # print (data2)
         return JsonResponse(json.dumps(response), safe=False)
+
+from django.shortcuts import get_object_or_404, render
+from django.core.urlresolvers import reverse
+
+
+def vote(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        print("in here")
+        hello = request.body
+        print(hello)
+        body_unicode = request.body.decode('utf-8')
+        body_data = body_unicode
+        print(body_data)
+        print(request.POST.get('your_name'))
+        print(request.POST.get('due_date'))
+
+        # create a form instance and populate it with data from the request:
+        #form = NameForm(request.POST)
+        # check whether it's valid:
+        # if form.is_valid():
+        #     # process the data in form.cleaned_data as required
+        #     # ...
+        #     # redirect to a new URL:
+        #     return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    # else:
+    #     form = NameForm()
+
+    return HttpResponse('Make sure all fields are entered and valid.')
 
 
 from django.core.mail import send_mail, BadHeaderError

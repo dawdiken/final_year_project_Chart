@@ -18,7 +18,8 @@ from django.contrib import admin
 
 
 
-from .views import get_data, ChartUsers, homeView, Data_users, permissionredirect, displayUsers, usertable, displayActiveWork, displayAllWork, worktable, allWorktable, workinfo, about
+from .views import get_data, ChartUsers, homeView, Data_users, permissionredirect, displayUsers, usertable, displayActiveWork, displayAllWork, worktable, allWorktable, workinfo, \
+    about, vote, changeWork
 
 urlpatterns = [
     url(r'^$', homeView, name='homeView'),
@@ -35,8 +36,9 @@ urlpatterns = [
     url(r'^api/chart/getworktableAll/$', displayAllWork.as_view()),
     url(r'^api/chart/worktable/$', worktable.as_view(), name='usertable'),
     url(r'^api/chart/allworktable/$', allWorktable.as_view(), name='Alltable'),
-
-
+    url(r'^api/chart/changework/$', changeWork.as_view(), name='changeWork'),
+    url(r'^api/chart/allworktable/vote$', vote, name='vote'),
+    url(r'^api/chart/changework/vote$', vote, name='vote'),
     url(r'^api/chart/workinfo/$', workinfo.as_view(), name='workinfo'),
 ]
 
