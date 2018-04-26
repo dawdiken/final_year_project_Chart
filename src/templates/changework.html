@@ -197,6 +197,7 @@ input[type=text]{
 </form>
 <div>
     <button type="button" class="view-info" id="view-info">Select Work Order</button>
+     <button type="button" class="test_me" id="test_me">Test</button>
 {#    <a href="/"><button type="button" class="back-to-home">Back to Home Page</button></a>#}
 </div>
 {#<div class='row'>#}
@@ -303,22 +304,25 @@ input[type=text]{
                 }
             });
         });
-              $(".view-info").click(function(){
+              $(".test_me").click(function(){
                 var i = 0;
                 $("table tbody").find('input[name="record"]').each(function(){
                 if($(this).is(":checked")){
                     var result;
                     var valii = i;
+                    var cusrname = $("table tbody").find(".jobNum").html();
+                    console.log(cusrname);
+
                     $.ajax({
-                        url:"/api/chart/getworktableAll/",
+                        url:"/api/chart/changeworkinfo/",
                         method:"GET",
-                        data:"",
+                        data: {'jobnum': cusrname},
                         dataType:"JSON",
                         success:function(result){
                             var arrayOfObjects = eval(result);
                             var passtochart = arrayOfObjects[valii];
-                             populateTable2();
-                            console.log(passtochart);
+                             {##populateTable2();#}
+                            {#console.log(passtochart);#}
                             {#setChart(passtochart);#}
                         },
                         error:function(xhr,status,error){
