@@ -200,24 +200,6 @@ input[type=text]{
      <button type="button" class="test_me" id="test_me">Test</button>
 {#    <a href="/"><button type="button" class="back-to-home">Back to Home Page</button></a>#}
 </div>
-{#<div class='row'>#}
-{#    <div class='col-sm-12'>#}
-{#        <canvas id="myChart" width="400" height="400"></canvas>#}
-{#        <h1>  </h1>#}
-{#        <h1>  </h1>#}
-{#         <form action="vote" method="post">#}
-{#    {% csrf_token %}#}
-{#    <label for="your_name">Your name: </label>#}
-{#    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">#}
-{#    <input type="submit" value="OK">#}
-{#</form>#}
-{#    </div>#}
-{#</div>#}
-{#<div id="panel">Hello world!</div>#}
-{#     <div>#}
-{#    <input id="panel" type="text" name="your_name" value="{{ current_name }}" type="submit" value="OK">#}
-{#    <input type="submit" value="OK">#}
-{#</div>#}
 
 <div class="choose" id="panelChange">
   <input type="button" class="button" value="Change Qty Ordered" id="btn1">
@@ -225,7 +207,6 @@ input[type=text]{
   <input type="button" class="button" value="3" id="btn3">
   <br>
     <form action="vote" method="post">
-{#  <input type="text" id="valueFromMyModal">#}
   <label for="your_name">Your name: </label>
   <input id="valueFromMyModal" type="text" name="your_name" value="{{ valueFromMyModal1 }}">
         <input id="dueDate" type="text" name="due_date" value="{{ dueDate }}">
@@ -257,8 +238,6 @@ input[type=text]{
     var labels = [];
     $(document).ready(function() {
         $(function () {
-            var defaultData = [];
-            var labels = [];
             $.ajax({
                 url:"/api/chart/getworktableAll/",
                 method:"GET",
@@ -266,8 +245,6 @@ input[type=text]{
                 dataType:"JSON",
                     success:function(result){
                     $.each(JSON.parse(result), function(idx, obj) {
-	                labels = obj.userID;
-	                defaultData = obj.userName;
 	                populateTable(obj);
                     });
                     },
@@ -278,64 +255,58 @@ input[type=text]{
             $(".view-info").click(function(){
                 var i = 0;
                 $("table tbody").find('input[name="record"]').each(function(){
-                if($(this).is(":checked")){
-                    var result;
-                    var valii = i;
-                    $.ajax({
-                        url:"/api/chart/getworktableAll/",
-                        method:"GET",
-                        data:"",
-                        dataType:"JSON",
-                        success:function(result){
-                            var arrayOfObjects = eval(result);
-                            var passtochart = arrayOfObjects[valii];
-                            console.log(passtochart);
-                            {#setChart(passtochart);#}
-                        },
-                        error:function(xhr,status,error){
-                            console.log("error: "+error);
-                        }
-                    });
-                }
-                else{
-                    i++;
-                    $(this).parents("tr").remove();
-                }
+                    if($(this).is(":checked")){
+                        var result;
+                        var valii = i;
+                        $.ajax({
+                            url:"/api/chart/getworktableAll/",
+                            method:"GET",
+                            data:"",
+                            dataType:"JSON",
+                            success:function(result){
+                                var arrayOfObjects = eval(result);
+                                var passtochart = arrayOfObjects[valii];
+                                console.log(passtochart);
+                                {#setChart(passtochart);#}
+                            },
+                            error:function(xhr,status,error){
+                                console.log("error: "+error);
+                            }
+                        });
+                    }
+                    else{
+                        i++;
+                        $(this).parents("tr").remove();
+                    }
+                });
             });
-        });
-              $(".test_me").click(function(){
-                var i = 0;
+            $(".test_me").click(function(){
                 $("table tbody").find('input[name="record"]').each(function(){
-                if($(this).is(":checked")){
-                    var result;
-                    var valii = i;
-                    var cusrname = $("table tbody").find(".jobNum").html();
-                    var newValue = $("#valueFromMyModal").val();
-                    $(this).parents("tr").remove();
-                    $.ajax({
-                        url:"/api/chart/changeworkinfo/",
-                        method:"GET",
-                        data: {'jobnum': cusrname, 'newQty': newValue},
-                        dataType:"JSON",
-                        success:function(result){
-                    $.each(JSON.parse(result), function(idx, obj) {
-	                labels = obj.userID;
-	                defaultData = obj.userName;
 
-	                populateTable(obj);
-                    });
-                    },
-                error:function(xhr,status,error){
-                    console.log("error: "+error);
-                }
+                    if($(this).is(":checked")){
+
+                        var cusrname = $("table tbody").find(".jobNum").html();
+                        var newValue = $("#valueFromMyModal").val();
+
+                        $(this).parents("tr").remove();
+                        $.ajax({
+
+                            url:"/api/chart/changeworkinfo/",
+                            method:"GET",
+                            data: {'jobnum': cusrname, 'newQty': newValue},
+                            dataType:"JSON",
+                            success:function(result){
+                                $.each(JSON.parse(result), function(idx, obj){
+                                    populateTable(obj);
+                                });
+                            },
+                            error:function(xhr,status,error){
+                            console.log("error: "+error);
+                            }
+                        });
+                    }
+                });
             });
-                }
-                else{
-                    i++;
-                    $(this).parents("tr").remove();
-                }
-            });
-        });
         });
     });
     function populateTable(usersInfo){
@@ -347,52 +318,32 @@ input[type=text]{
 </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-{#$(document).ready(function(){#}
-{#    $("#flip").click(function(){#}
-{#        $("#panel").slideDown("slow");#}
-{#    });#}
 
-$(function() {
-    $("#view-info").click(function() {
-        //$("#myform #valueFromMyButton").text($(this).val().trim());
-        //$("#myform input[type=text]").val('');
-        $("#view-info").hide();
-        $("#panelChange").show(1000);
+    $(function() {
+        $("#view-info").click(function() {
+            //$("#myform #valueFromMyButton").text($(this).val().trim());
+            //$("#myform input[type=text]").val('');
+            $("#view-info").hide();
+            $("#panelChange").show(1000);
 
+        });
+        $("#btnOK").click(function() {
+            $("#valueFromMyModal").val($("#myform input[type=text]").val().trim());
+            $("#myform").hide(400);
+        });
     });
-    $("#btnOK").click(function() {
-        $("#valueFromMyModal").val($("#myform input[type=text]").val().trim());
-        $("#myform").hide(400);
+    $(function() {
+        $(".button").click(function() {
+            $("#myform #valueFromMyButton").text($(this).val().trim());
+            $("#myform input[type=text]").val('');
+            $("#myform").show(500);
+            $('[data-column-id=market]').text()
+        });
+        $("#btnOK").click(function() {
+            $("#valueFromMyModal").val($("#myform input[type=text]").val().trim());
+            $("#myform").hide(400);
+        });
     });
-});
-$(function() {
-    $(".button").click(function() {
-        $("#myform #valueFromMyButton").text($(this).val().trim());
-        $("#myform input[type=text]").val('');
-        $("#myform").show(500);
-        $('[data-column-id=market]').text()
-    });
-    $("#btnOK").click(function() {
-        $("#valueFromMyModal").val($("#myform input[type=text]").val().trim());
-        $("#myform").hide(400);
-    });
-});
-function myFunction() {
-    {#var row = document.getElementById("myTable");#}
-    {#row.deleteCell(0);#}
-    $('#myTable tr').each(function () {
-        var customerId = $(this).find(".pwd").html();
-        console.log(customerId);
-    });
-
-
-    //alert(document.getElementById("myTable").rows[1].cells[7].innerHTML);
-
-}
-function populateTable2(){
-    var cusrname = $("table tbody").find(".jobNum").html();
-    console.log(cusrname);
-}
 </script>
 {% endblock %}
 
