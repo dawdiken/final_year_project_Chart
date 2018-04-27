@@ -316,6 +316,7 @@ class changeWorkInfo(View):
             print(request)
             print(request.GET.get)
             jobnum = request.GET['jobnum']
+            newQty = request.GET['newQty']
             print(jobnum)
             if request.GET.get('jobnum'):
                 print(request.GET['jobnum'])
@@ -346,38 +347,49 @@ class changeWorkInfo(View):
 
             #cursor.execute('UPDATE workon_copy SET qty_ordered = %s WHERE jobID = %s', (2, 49))
 
-            query = ("UPDATE workon_copy SET qty_ordered=52 WHERE jobID=52")
+            # query = ("UPDATE workon_copy SET qty_ordered=52 WHERE jobID=52")
+            print(newQty)
+            print(jobnum)
+            john = str(newQty)
+            paul = str(jobnum)
+            query = ("UPDATE workon_copy SET qty_ordered = %s WHERE jobID = %s")
             #cnx.commit()
             value = '52'
             print("after this")
 
 
-            cursor.execute(query)
+            cursor.execute(query,(newQty,jobnum))
             cnx.commit()
+
+            query = ("SELECT * FROM workon_copy WHERE jobID = %s")
+
+            # cursor.execute("SELECT FROM tablename WHERE fieldname = %s", [value])
+            cursor.execute(query, jobnum)
+
             #
             #
             # cursor.execute(query)
             #
             response = []
             #
-            # results = cursor.fetchall()
-            # #print(results)
-            #
-            # for row in results:
-            #     jobID = row[0]
-            #     jobNum = row[1]
-            #     active = row[2]
-            #     customer_ID = row[3]
-            #     department_ID = row[4]
-            #     partID = row[5]
-            #     batchNumber = row[6]
-            #     qtyOrdered = row[7]
-            #     machineID= row[8]
-            #     qty_finished = row[9]
-            #     qty_scrap = row[10]
-            #     response.append({'jobID': jobID, 'jobNum': jobNum, 'active': active, 'customer_ID': customer_ID,
-            #                      'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap, 'qtyOrdered': qtyOrdered})
-            # #print("response json" + json.dumps(response))
+            results = cursor.fetchall()
+            #print(results)
+
+            for row in results:
+                jobID = row[0]
+                jobNum = row[1]
+                active = row[2]
+                customer_ID = row[3]
+                department_ID = row[4]
+                partID = row[5]
+                batchNumber = row[6]
+                qtyOrdered = row[7]
+                machineID= row[8]
+                qty_finished = row[9]
+                qty_scrap = row[10]
+                response.append({'jobID': jobID, 'jobNum': jobNum, 'active': active, 'customer_ID': customer_ID,
+                                 'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap, 'qtyOrdered': qtyOrdered})
+            print("response json" + json.dumps(response))
 
         finally:
             cursor.close()

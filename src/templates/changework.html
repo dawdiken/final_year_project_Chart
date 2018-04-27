@@ -173,7 +173,7 @@ input[type=text]{
     </style>
 <div class="jumbotron">
     <div class="container text-center">
-        <h1>Change Works Orders</h1>
+        <h1>Change Work Orders</h1>
 
     </div>
 </div>
@@ -227,7 +227,7 @@ input[type=text]{
     <form action="vote" method="post">
 {#  <input type="text" id="valueFromMyModal">#}
   <label for="your_name">Your name: </label>
-  <input id="valueFromMyModal" type="text" name="your_name" value="{{ valueFromMyModal }}">
+  <input id="valueFromMyModal" type="text" name="your_name" value="{{ valueFromMyModal1 }}">
         <input id="dueDate" type="text" name="due_date" value="{{ dueDate }}">
   <input type="submit" value="OK">
         {% csrf_token %}
@@ -289,7 +289,6 @@ input[type=text]{
                         success:function(result){
                             var arrayOfObjects = eval(result);
                             var passtochart = arrayOfObjects[valii];
-                             populateTable2();
                             console.log(passtochart);
                             {#setChart(passtochart);#}
                         },
@@ -311,24 +310,25 @@ input[type=text]{
                     var result;
                     var valii = i;
                     var cusrname = $("table tbody").find(".jobNum").html();
-                    console.log(cusrname);
-
+                    var newValue = $("#valueFromMyModal").val();
+                    $(this).parents("tr").remove();
                     $.ajax({
                         url:"/api/chart/changeworkinfo/",
                         method:"GET",
-                        data: {'jobnum': cusrname},
+                        data: {'jobnum': cusrname, 'newQty': newValue},
                         dataType:"JSON",
                         success:function(result){
-                            var arrayOfObjects = eval(result);
-                            var passtochart = arrayOfObjects[valii];
-                             {##populateTable2();#}
-                            {#console.log(passtochart);#}
-                            {#setChart(passtochart);#}
-                        },
-                        error:function(xhr,status,error){
-                            console.log("error: "+error);
-                        }
+                    $.each(JSON.parse(result), function(idx, obj) {
+	                labels = obj.userID;
+	                defaultData = obj.userName;
+
+	                populateTable(obj);
                     });
+                    },
+                error:function(xhr,status,error){
+                    console.log("error: "+error);
+                }
+            });
                 }
                 else{
                     i++;
