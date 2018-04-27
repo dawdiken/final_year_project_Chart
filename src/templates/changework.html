@@ -2,7 +2,6 @@
 <body>
 {% block content %}
     <style type="text/css">
-
         /* Remove the navbar's default rounded borders and increase the bottom margin */
         .navbar {
             margin-bottom: 50px;
@@ -250,34 +249,33 @@
                         $("#myformDelete").hide(700);
                     }
                 });
-            });
-              $("#btn3").click(function(){
-                 console.log("refresh");
+             });
+             $("#btn3").click(function(){
                  var select = 0;
-                $("table tbody").find('input[name="record"]').each(function(){
-                    if($(this).is(":checked")){
-                        $(this).parents("tr").remove();
-                        getWorkInfo();
-                        $("#panelChange").hide(700);
-                        $("#view-info").show(700);
-                        select ++;
-                    }
-                    else{
-                        $(this).parents("tr").remove();
-                        getWorkInfo();
-                        $("#panelChange").hide(700);
-                        $("#view-info").show(700);
-                        select ++;
-                    }
-                });
-                if (select == 0){
-                    getWorkInfo();
-                }
-                });
+                 $("table tbody").find('input[name="record"]').each(function(){
+                     if($(this).is(":checked")){
+                         $(this).parents("tr").remove();
+                         getWorkInfo();
+                         $("#panelChange").hide(700);
+                         $("#view-info").show(700);
+                         select ++;
+                     }
+                     else{
+                         $(this).parents("tr").remove();
+                         getWorkInfo();
+                         $("#panelChange").hide(700);
+                         $("#view-info").show(700);
+                         select ++;
+                     }
+                 });
+                 if (select == 0){
+                     getWorkInfo();
+                 }
+             });
         });
     });
     function populateTable(usersInfo){
-            var markup = "<tr><td><input type='checkbox' name='record'></td> <td class='jobNum'>" + usersInfo.jobNum + "</td><td class='active'>" + usersInfo.active + "</td><td class='dob'>" + usersInfo.customer_ID + "</td><td class='usern'>" + usersInfo.department_ID + "</td><td class='pwd'>" + usersInfo.partID + "</td><td class='pwd'>" + usersInfo.machineID + "</td><td class='pwd'>" + usersInfo.qtyOrdered + "</td></tr>";
+            var markup = "<tr><td><input type='radio' name='record'></td> <td class='jobNum'>" + usersInfo.jobNum + "</td><td class='active'>" + usersInfo.active + "</td><td class='dob'>" + usersInfo.customer_ID + "</td><td class='usern'>" + usersInfo.department_ID + "</td><td class='pwd'>" + usersInfo.partID + "</td><td class='pwd'>" + usersInfo.machineID + "</td><td class='pwd'>" + usersInfo.qtyOrdered + "</td></tr>";
             $("table tbody").append(markup);
     }
     function getWorkInfo(){

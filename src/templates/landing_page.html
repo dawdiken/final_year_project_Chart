@@ -14,8 +14,9 @@
     <div>
         <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
         <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'Data_users'%}?next={{request.path}}">Chart users</a></li>
-        <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'Alltable'%}?next={{request.path}}"> View all Work </a></li>
-        <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'usertable'%}?next={{request.path}}">View Active Work </a></li>
+        <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'Alltable'%}?next={{request.path}}"> View all Work</a></li>
+        <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'usertable'%}?next={{request.path}}">View Active Work</a></li>
+        <li><a class="w3-xlarge w3-text-blue w3-hover-white" href="{% url 'changeWork'%}?next={{request.path}}">Change Work</a></li>
     </div>
 {% else %}
 

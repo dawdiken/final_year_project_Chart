@@ -218,7 +218,7 @@
         });
     });
     function populateTable(usersInfo){
-            var markup = "<tr><td><input type='checkbox' name='record'></td> <td class='fname'>" + usersInfo.jobID + "</td><td class='lname'>" + usersInfo.jobNum + "</td><td class='dob'>" + usersInfo.customer_ID + "</td><td class='usern'>" + usersInfo.department_ID + "</td><td class='pwd'>" + usersInfo.partID + "</td><td class='pwd'>" + usersInfo.machineID + "</td></tr>";
+            var markup = "<tr><td><input type='radio' name='record'></td> <td class='fname'>" + usersInfo.jobID + "</td><td class='lname'>" + usersInfo.jobNum + "</td><td class='dob'>" + usersInfo.customer_ID + "</td><td class='usern'>" + usersInfo.department_ID + "</td><td class='pwd'>" + usersInfo.partID + "</td><td class='pwd'>" + usersInfo.machineID + "</td></tr>";
             $("table tbody").append(markup);
     }
     function setChart(obj) {

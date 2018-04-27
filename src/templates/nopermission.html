@@ -7,9 +7,9 @@
          </div>
         <div class="w3-container">
           <p></p>
-            <li>Sorry {{ user.get_username }}, you do not have the correct permissions to acces this page:</li>
+            <h2>Sorry {{ user.get_username }}, you do not have the correct permissions to acces this page:</h2>
           <hr>
-        <li><a href="{% url 'homeView'%}?next={{request.path}}">Return to home page</a></li>
+        <h2><a href="{% url 'homeView'%}?next={{request.path}}">Return to home page</a></h2>
         <hr>
         </div>
    {% else %}

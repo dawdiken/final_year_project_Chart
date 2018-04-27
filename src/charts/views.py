@@ -14,11 +14,15 @@ from django.http import HttpResponse
 
 class Data_users(View):
     def get(self, request, *args, **kwargs):
+        permisson = 0
         if not request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
-        if not request.user.email.endswith('@gmail.com'):
+        if request.user.email.endswith('@gmail.com'):
+            return render(request, 'charts.html', {"customer": 10})
+        elif request.user.email.endswith('@eng.com'):
+            return render(request, 'charts.html', {"customer": 10})
+        else:
             return redirect('/permissionredirect')
-        return render(request, 'charts.html', {"customer": 10})
 
 
 def get_data(request, *args, **kwargs):
@@ -186,25 +190,56 @@ class worktable(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
-        if not request.user.email.endswith('@gmail.com'):
+        if request.user.email.endswith('@gmail.com'):
+            return render(request, 'worktable.html')
+        elif request.user.email.endswith('@eng.com'):
+            return render(request, 'worktable.html')
+        else:
             return redirect('/permissionredirect')
-        return render(request, 'worktable.html')
+
+
+        # if not request.user.is_authenticated:
+        #     return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+        # if not request.user.email.endswith('@gmail.com'):
+        #     return redirect('/permissionredirect')
+        # return render(request, 'worktable.html')
 
 class changeWork(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
-        if not request.user.email.endswith('@gmail.com'):
+        if request.user.email.endswith('@eng.com'):
+            return render(request, 'changework.html')
+        else:
             return redirect('/permissionredirect')
-        return render(request, 'changework.html')
+
+
+
+        # if not request.user.is_authenticated:
+        #     return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+        # if not request.user.email.endswith('@gmail.com'):
+        #     return redirect('/permissionredirect')
+        # return render(request, 'changework.html')
 
 class allWorktable(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
-        if not request.user.email.endswith('@gmail.com'):
+        if request.user.email.endswith('@gmail.com'):
+            return render(request, 'allwork.html')
+        elif request.user.email.endswith('@eng.com'):
+            return render(request, 'allwork.html')
+        else:
             return redirect('/permissionredirect')
-        return render(request, 'allwork.html')
+
+
+
+
+        # if not request.user.is_authenticated:
+        #     return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+        # if not request.user.email.endswith('@gmail.com'):
+        #     return redirect('/permissionredirect')
+        # return render(request, 'allwork.html')
 
 class workinfo(View):
     def get(self, request, *args, **kwargs):

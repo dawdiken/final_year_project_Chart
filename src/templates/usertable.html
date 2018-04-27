@@ -178,7 +178,7 @@
         {#for (var i = 0; i<len; i++){#}
         {#    var student = students[i];#}
              {#console.log(student[i])#}
-            var markup = "<tr><td><input type='checkbox' name='record'></td> <td class='fname'>" + usersInfo.userID + "</td><td class='lname'>" + usersInfo.userName + "</td><td class='email'>" + usersInfo + "</td><td class='dob'>" + usersInfo + "</td><td class='usern'>" + usersInfo + "</td><td class='pwd'>" + usersInfo + "</td></tr>";
+            var markup = "<tr><td><input type='radio' name='record'></td> <td class='fname'>" + usersInfo.userID + "</td><td class='lname'>" + usersInfo.userName + "</td><td class='email'>" + usersInfo + "</td><td class='dob'>" + usersInfo + "</td><td class='usern'>" + usersInfo + "</td><td class='pwd'>" + usersInfo + "</td></tr>";
             $("table tbody").append(markup);
     }
     function removeUser(students, i){
