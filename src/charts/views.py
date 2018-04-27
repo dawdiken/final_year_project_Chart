@@ -11,7 +11,7 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, StreamingHttpResponse
 
 
 class Data_users(View):
@@ -355,6 +355,7 @@ def ReadBlob(request):
         conn.close()
         return HttpResponse(filename)
 
+
 def send_email(request):
     subject = request.POST.get('subject', '')
     message = request.POST.get('message', '')
@@ -367,3 +368,26 @@ def send_email(request):
         return HttpResponseRedirect('/contact/thanks/')
     else:
         return HttpResponse('Make sure all fields are entered and valid.')
+
+
+# import requests
+# # have this function in file where you keep your util functions
+# def url2yield(url, chunksize=1024):
+#    s = requests.Session()
+#    # Note: here i enabled the streaming
+#    response = s.get(url, stream=True)
+#
+#    chunk = True
+#    while chunk :
+#       chunk = response.raw.read(chunksize)
+#
+#       if not chunk:
+#          break
+#
+#       yield chunk
+#
+#
+# # Then creation your view using StreamingHttpResponse
+# def get_image(request, img_id):
+#    img_url = "http://api.myexample.net/album/123/img/{0}".format(img_id)
+#    return StreamingHttpResponse(url2yield(img_url), content_type="image/jpeg")
