@@ -1,20 +1,18 @@
 {% extends "base.html" %}
-
 {% block content %}
     {% if user.is_authenticated %}
         <div class="w3-container">
         <img src="https://cdn1.iconfinder.com/data/icons/jetflat-multimedia-vol-4/90/0042_099_lock_access_denied_blocked-512.png" alt="Avatar" class="avatar" style="width:200px;height:200px;">
-         </div>
+        </div>
         <div class="w3-container">
-          <p></p>
+            <p></p>
             <h2>Sorry {{ user.get_username }}, you do not have the correct permissions to acces this page:</h2>
-          <hr>
-        <h2><a href="{% url 'homeView'%}?next={{request.path}}">Return to home page</a></h2>
-        <hr>
+            <hr>
+            <h2><a href="{% url 'homeView'%}?next={{request.path}}">Return to home page</a></h2>
+            <hr>
         </div>
    {% else %}
         <p>Please Log in:</p>
-   <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
    {% endif %}
-
 {% endblock %}
