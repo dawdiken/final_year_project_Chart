@@ -17,12 +17,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from .views import get_data, ChartUsers, homeView, Data_users, permissionredirect, displayUsers, usertable, displayActiveWork, displayAllWork, worktable, allWorktable, workinfo, \
-    about, vote, changeWork, changeWorkInfo, deleteWorkInfo
+    about, vote, changeWork, changeWorkInfo, deleteWorkInfo, ReadBlob
 
 urlpatterns = [
     url(r'^$', homeView, name='homeView'),
     url(r'^permissionredirect$', permissionredirect, name='permissionredirect'),
     url(r'^about$', about, name='about'),
+    url(r'^ReadBlob$', ReadBlob, name='ReadBlob'),
     url(r'^api/chart/users/$', Data_users.as_view(), name='Data_users'),
     url(r'^api/data/$', get_data, name='api-data'),
     url(r'^api/chart/users_info/$', ChartUsers.as_view()),
