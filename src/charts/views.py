@@ -279,14 +279,6 @@ class displayAllWork(APIView):
         # print (data2)
         return JsonResponse(json.dumps(response), safe=False)
 
-from django.views.decorators.csrf import csrf_exempt
-
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-
-class CsrfExemptSessionAuthentication(SessionAuthentication):
-
-    def enforce_csrf(self, request):
-        return  # To not perform the csrf check previously happening
 
 class changeWorkInfo(View):
     """
@@ -312,69 +304,21 @@ class changeWorkInfo(View):
 
     def get(self, request, format=None):
         if request.method == 'GET':
-            print("in here")
-            print(request)
-            print(request.GET.get)
             jobnum = request.GET['jobnum']
             newQty = request.GET['newQty']
-            print(jobnum)
-            if request.GET.get('jobnum'):
-                print(request.GET['jobnum'])
-            else:
-                print('submitted nothing!')
-            # hello = request.body
-            # print(hello)
-            # body_unicode = request.body.decode('utf-8')
-            # body_data = body_unicode
-            # print(body_data)
-            # print(request.POST.get('your_name'))
-            # print(request.POST.get('due_date'))
-
         try:
             cnx = pymysql.connect(host="35.184.175.243",  # your host, usually localhost
                                user="root",  # your username
                                passwd="test12",  # your password
                                db="engineering")  # name of the data base
             cursor = cnx.cursor()
-
-            # query = ("select * from users")
-
-            # cursor.execute(
-            #     'UPDATE workon_copy SET qty_ordered=%s WHERE jobID=%s' (2, 49))
-            #
-            # query = (
-            #     "UPDATE workon_copy SET  WHERE "(2, 49))
-
-            #cursor.execute('UPDATE workon_copy SET qty_ordered = %s WHERE jobID = %s', (2, 49))
-
-            # query = ("UPDATE workon_copy SET qty_ordered=52 WHERE jobID=52")
-            print(newQty)
-            print(jobnum)
-            john = str(newQty)
-            paul = str(jobnum)
             query = ("UPDATE workon_copy SET qty_ordered = %s WHERE jobID = %s")
-            #cnx.commit()
-            value = '52'
-            print("after this")
-
-
             cursor.execute(query,(newQty,jobnum))
             cnx.commit()
-
             query = ("SELECT * FROM workon_copy WHERE jobID = %s")
-
-            # cursor.execute("SELECT FROM tablename WHERE fieldname = %s", [value])
             cursor.execute(query, jobnum)
-
-            #
-            #
-            # cursor.execute(query)
-            #
             response = []
-            #
             results = cursor.fetchall()
-            #print(results)
-
             for row in results:
                 jobID = row[0]
                 jobNum = row[1]
@@ -390,13 +334,38 @@ class changeWorkInfo(View):
                 response.append({'jobID': jobID, 'jobNum': jobNum, 'active': active, 'customer_ID': customer_ID,
                                  'department_ID': department_ID, 'partID': partID, 'machineID': machineID, 'qty_finished': qty_finished, 'qty_scrap': qty_scrap, 'qtyOrdered': qtyOrdered})
             print("response json" + json.dumps(response))
-
         finally:
             cursor.close()
             cnx.close()
+        return JsonResponse(json.dumps(response), safe=False)
 
-        data2 = json.dumps(response)
-        # print (data2)
+
+class deleteWorkInfo(APIView):
+    """
+    * Requires token authentication.
+    * Only admin users are able to access this view.
+    """
+    # login_url = '/login/'
+    # redirect_field_name = 'redirect_to'
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        if request.method == 'GET':
+            jobnum = request.GET['jobnum']
+        try:
+            cnx = pymysql.connect(host="35.184.175.243",  # your host, usually localhost
+                               user="root",  # your username
+                               passwd="test12",  # your password
+                               db="engineering")  # name of the data base
+            cursor = cnx.cursor()
+            query = ("DELETE FROM workon_copy WHERE jobID = %s")
+            cursor.execute(query, (jobnum))
+            cnx.commit()
+        finally:
+            cursor.close()
+            cnx.close()
+            response = ["succcess"]
         return JsonResponse(json.dumps(response), safe=False)
 
 
