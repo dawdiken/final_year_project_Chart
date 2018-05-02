@@ -57,31 +57,6 @@
         <p>Table of all employees and work</p>
     </div>
 </div>
-
-{#<nav class="navbar navbar-inverse">#}
-{#    <div class="container-fluid">#}
-{#        <div class="navbar-header">#}
-{#            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">#}
-{#                <span class="icon-bar"></span>#}
-{#                <span class="icon-bar"></span>#}
-{#                <span class="icon-bar"></span>#}
-{#            </button>#}
-{#            <a class="navbar-brand" href="#">Logo</a>#}
-{#        </div>#}
-{#        <div class="collapse navbar-collapse" id="myNavbar">#}
-{#            <form style="text-align: center">#}
-{#                <input type="number" name="userID" placeholder="userID">#}
-{#                <input type="text" name="userName" placeholder="First Name">#}
-{#                <input type="text"  name="lname" placeholder="Last Name">#}
-{#                <input type="text"  name="email" placeholder="Email Address">#}
-{#                <input type="date"  name="dob" placeholder="Date of Birth">#}
-{#                <input type="text"  name="usern" placeholder="Username">#}
-{#                <input type="text"  name="passw" placeholder="Password"><br>#}
-{#                <input type="button" id="createuser" value="Add User">#}
-{#            </form>#}
-{#        </div>#}
-{#    </div>#}
-{#</nav>#}
 <form>
     <table align='center' id="User_table">
         <thead>
@@ -118,13 +93,10 @@
                 dataType:"JSON",
                     success:function(result){
                     $.each(JSON.parse(result), function(idx, obj) {
-	                {#alert(obj.userID);#}
 	                labels = obj.userID;
 	                defaultData = obj.userName;
 	                populateTable(obj);
                     });
-                    {#labels = result.userID;#}
-                    {#defaultData = result.userName;#}
                     console.log("labels" + labels);
                     console.log("defaultData" + defaultData);
                     console.log("result" + result);
@@ -139,7 +111,7 @@
             $(".view-info").click(function(){
                 var i = 0;
                 $("table tbody").find('input[name="record"]').each(function(){
-                    console.log(i)
+                    console.log(i);
                     if($(this).is(":checked")){
                         console.log($(this));
                         var result;
@@ -175,9 +147,6 @@
         var table = document.getElementById("user-table");
         var len = usersInfo.length;
         console.log("pupulate student = " + usersInfo + "lenght" + len)
-        {#for (var i = 0; i<len; i++){#}
-        {#    var student = students[i];#}
-             {#console.log(student[i])#}
             var markup = "<tr><td><input type='radio' name='record'></td> <td class='fname'>" + usersInfo.userID + "</td><td class='lname'>" + usersInfo.userName + "</td><td class='email'>" + usersInfo + "</td><td class='dob'>" + usersInfo + "</td><td class='usern'>" + usersInfo + "</td><td class='pwd'>" + usersInfo + "</td></tr>";
             $("table tbody").append(markup);
     }
