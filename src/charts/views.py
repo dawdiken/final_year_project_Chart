@@ -1,22 +1,18 @@
 from django.views.generic import View
-from django.http import JsonResponse ,request
+from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.conf import settings
 from django.shortcuts import redirect
-# from django.db.backends import mysql
-#import MySQLdb
 import pymysql
 import json
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect, StreamingHttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 class Data_users(View):
     def get(self, request, *args, **kwargs):
-        permisson = 0
         if not request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         if request.user.email.endswith('@gmail.com'):
@@ -368,26 +364,3 @@ def send_email(request):
         return HttpResponseRedirect('/contact/thanks/')
     else:
         return HttpResponse('Make sure all fields are entered and valid.')
-
-
-# import requests
-# # have this function in file where you keep your util functions
-# def url2yield(url, chunksize=1024):
-#    s = requests.Session()
-#    # Note: here i enabled the streaming
-#    response = s.get(url, stream=True)
-#
-#    chunk = True
-#    while chunk :
-#       chunk = response.raw.read(chunksize)
-#
-#       if not chunk:
-#          break
-#
-#       yield chunk
-#
-#
-# # Then creation your view using StreamingHttpResponse
-# def get_image(request, img_id):
-#    img_url = "http://api.myexample.net/album/123/img/{0}".format(img_id)
-#    return StreamingHttpResponse(url2yield(img_url), content_type="image/jpeg")
